@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapplitools_playwright_docs=self.webpackChunkapplitools_playwright_docs||[]).push([[1903],{1912:l=>{l.exports=JSON.parse('{"blogBasePath":"/applitools-playwright-docs/blog","blogTitle":"Blog","authorsListPath":"/applitools-playwright-docs/blog/authors"}')}}]);

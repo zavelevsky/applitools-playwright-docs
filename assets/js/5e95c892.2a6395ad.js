@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapplitools_playwright_docs=self.webpackChunkapplitools_playwright_docs||[]).push([[9647],{7121:(s,e,r)=>{r.r(e),r.d(e,{default:()=>u});r(6540);var a=r(4164),l=r(1213),p=r(7559),t=r(2831),c=r(781),o=r(4848);function u(s){return(0,o.jsx)(l.e3,{className:(0,a.A)(p.G.wrapper.docsPages),children:(0,o.jsx)(c.A,{children:(0,t.v)(s.route.routes)})})}}}]);
