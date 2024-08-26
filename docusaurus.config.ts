@@ -46,7 +46,6 @@ const config: Config = {
 
   themeConfig: {
     navbar: {
-      title: 'Applitools Eyes SDK for Playwright',
       logo: {
         alt: 'Applitools Logo',
         src: 'img/logo.svg',
