@@ -19,7 +19,7 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/introduction"
+            to="/docs/quick-start"
           >
             Get Started with Applitools Eyes for Playwright
           </Link>

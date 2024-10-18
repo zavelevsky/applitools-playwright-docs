@@ -1,215 +1,203 @@
-# CI/CD Integration for Applitools Eyes SDK with Playwright
+# **CI/CD Integration**
 
-This guide covers how to integrate Applitools Eyes visual testing with your CI/CD pipeline when using Playwright. We'll provide examples for popular CI/CD platforms and best practices for efficient integration.
+Integrating Applitools Eyes into your Continuous Integration and Continuous Deployment (CI/CD) pipelines ensures that visual testing becomes an automated part of your development workflow. This section will guide you through setting up Applitools with popular CI/CD tools, automating visual tests on code changes, and managing baselines in a collaborative environment.
 
-## Table of Contents
+## **Automating visual tests in CI/CD**
 
-1. [General Setup](#general-setup)
-2. [GitHub Actions](#github-actions)
-3. [Jenkins](#jenkins)
-4. [GitLab CI](#gitlab-ci)
-5. [Azure DevOps](#azure-devops)
-6. [CircleCI](#circleci)
-7. [Best Practices](#best-practices)
+Automating visual tests allows you to catch visual regressions early in the development process. By running tests on every code change, pull request, or deployment, you ensure that your application's UI remains consistent and high-quality.
 
-## General Setup
+### **Prerequisites**
 
-Regardless of the CI/CD platform you're using, there are some common steps:
+* **Applitools API key**: Ensure your API key is accessible in your CI environment. You can set it as an environment variable named `APPLITOOLS_API_KEY`.  
+* **Configured project**: Your project should already be set up with Applitools Eyes and Playwright, as described in the Quick Start section.
 
-1. Ensure Node.js is installed in your CI environment
-2. Install Playwright and Applitools Eyes SDK
-3. Set up your Applitools API key as an environment variable
-4. Run your Playwright tests with Applitools Eyes
+## **Setting up Applitools in CI environments**
 
-Here's a general script that you can adapt for your CI/CD platform:
+### **Common steps**
 
-```bash
-# Install dependencies
-npm ci
+**Install dependencies**: Install project dependencies, including Playwright and Applitools Eyes SDK.  
+`npm install`
 
-# Install Playwright browsers
-npx playwright install
+**Set the Applitools API key**: Ensure the `APPLITOOLS_API_KEY` environment variable is set in your CI environment.
 
-# Run tests
-APPLITOOLS_API_KEY=$YOUR_API_KEY npx playwright test
-```
+**Run tests**: Execute your Playwright tests as part of your CI pipeline.  
+`npx playwright test`
 
-## GitHub Actions
+## **Integrating with popular CI/CD tools**
 
-Create a `.github/workflows/visual-tests.yml` file in your repository:
+### **GitHub actions**
 
-```yaml
-name: Visual Tests
+Here's an example of setting up Applitools visual tests in a GitHub Actions workflow.
 
-on: [push, pull_request]
+`# .github/workflows/ci.yml`  
+`name: CI`
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: npm ci
-      - name: Install Playwright
-        run: npx playwright install
-      - name: Run visual tests
-        run: npx playwright test
-        env:
-          APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
-```
+`on:`  
+  `push:`  
+    `branches: [main]`  
+  `pull_request:`
 
-Make sure to add your Applitools API key as a secret in your GitHub repository settings.
+`jobs:`  
+  `visual-tests:`  
+    `runs-on: ubuntu-latest`
 
-## Jenkins
+    `steps:`  
+      `- name: Checkout code`  
+        `uses: actions/checkout@v2`
 
-Add the following stage to your Jenkinsfile:
+      `- name: Set up Node.js`  
+        `uses: actions/setup-node@v2`  
+        `with:`  
+          `node-version: '16'`
 
-```groovy
-pipeline {
-    agent any
-    stages {
-        stage('Visual Tests') {
-            steps {
-                nodejs(nodeJSInstallationName: 'Node 14') {
-                    sh 'npm ci'
-                    sh 'npx playwright install'
-                    withCredentials([string(credentialsId: 'APPLITOOLS_API_KEY', variable: 'APPLITOOLS_API_KEY')]) {
-                        sh 'npx playwright test'
-                    }
-                }
-            }
-        }
-    }
-}
-```
+      `- name: Install dependencies`  
+        `run: npm install`
 
-Ensure you've added your Applitools API key as a credential in Jenkins.
+      `- name: Run visual tests`  
+        `env:`  
+          `APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}`  
+        `run: npx playwright test`
 
-## GitLab CI
+#### **Notes**
 
-Add the following to your `.gitlab-ci.yml` file:
+* **Environment variables**: Store your `APPLITOOLS_API_KEY` in GitHub Secrets to keep it secure.  
+* **Parallel execution**: You can configure matrix strategies to run tests across different environments.
 
-```yaml
-visual_tests:
-  image: mcr.microsoft.com/playwright:v1.21.0-focal
-  stage: test
-  script:
-    - npm ci
-    - npx playwright install
-    - npx playwright test
-  variables:
-    APPLITOOLS_API_KEY: $APPLITOOLS_API_KEY
-```
+### **Jenkins**
 
-Add your Applitools API key as a variable in your GitLab CI/CD settings.
+To integrate Applitools visual tests in a Jenkins pipeline:
 
-## Azure DevOps
+`// Jenkinsfile`  
+`pipeline {`  
+    `agent any`
 
-Add the following task to your Azure Pipelines YAML file:
+    `environment {`  
+        `APPLITOOLS_API_KEY = credentials('APPLITOOLS_API_KEY') // Assuming you've stored the key in Jenkins credentials`  
+    `}`
 
-```yaml
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
+    `stages {`  
+        `stage('Checkout') {`  
+            `steps {`  
+                `checkout scm`  
+            `}`  
+        `}`  
+        `stage('Install Dependencies') {`  
+            `steps {`  
+                `sh 'npm install'`  
+            `}`  
+        `}`  
+        `stage('Run Visual Tests') {`  
+            `steps {`  
+                `sh 'npx playwright test'`  
+            `}`  
+        `}`  
+    `}`  
+`}`
 
-- script: |
-    npm ci
-    npx playwright install
-  displayName: 'Install dependencies'
+#### **Notes**
 
-- script: |
-    npx playwright test
-  displayName: 'Run visual tests'
-  env:
-    APPLITOOLS_API_KEY: $(APPLITOOLS_API_KEY)
-```
+* **Credentials management**: Use Jenkins' credentials management to store your API key securely.  
+* **Pipeline structure**: Adjust the stages according to your project's needs.
 
-Add your Applitools API key as a pipeline variable in Azure DevOps.
+### **GitLab CI/CD**
 
-## CircleCI
+Example configuration for GitLab CI/CD:
 
-Add the following to your `.circleci/config.yml` file:
+`# .gitlab-ci.yml`  
+`stages:`  
+  `- test`
 
-```yaml
-version: 2.1
-jobs:
-  visual_tests:
-    docker:
-      - image: mcr.microsoft.com/playwright:v1.21.0-focal
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            npm ci
-            npx playwright install
-      - run:
-          name: Run visual tests
-          command: npx playwright test
-          environment:
-            APPLITOOLS_API_KEY: ${APPLITOOLS_API_KEY}
+`visual_test:`  
+  `stage: test`  
+  `image: node:16`  
+  `script:`  
+    `- npm install`  
+    `- npx playwright test`  
+  `variables:`  
+    `APPLITOOLS_API_KEY: $APPLITOOLS_API_KEY`
 
-workflows:
-  version: 2
-  test:
-    jobs:
-      - visual_tests
-```
+#### **Notes**
 
-Add your Applitools API key as an environment variable in CircleCI project settings.
+* **Environment variables**: Set `APPLITOOLS_API_KEY` in GitLab's CI/CD settings under variables.  
+* **Docker images**: Ensure the Docker image used has all necessary dependencies.
 
-## Best Practices
+### **CircleCI**
 
-1. **Use Caching**: Cache your `node_modules` to speed up builds.
+Example configuration for CircleCI:
 
-2. **Parallel Execution**: Leverage your CI/CD platform's parallel execution capabilities along with Applitools' Visual Grid for faster test runs.
+`# .circleci/config.yml`  
+`version: 2.1`
 
-3. **Selective Testing**: Run visual tests only when necessary, e.g., on pull requests or specific branches.
+`jobs:`  
+  `visual_test:`  
+    `docker:`  
+      `- image: cimg/node:16.13`  
+    `steps:`  
+      `- checkout`  
+      `- run: npm install`  
+      `- run:`  
+          `name: Run Visual Tests`  
+          `command: npx playwright test`  
+          `environment:`  
+            `APPLITOOLS_API_KEY: $APPLITOOLS_API_KEY`
 
-4. **Fail Fast**: Configure your tests to fail fast if critical visual issues are detected.
+`workflows:`  
+  `version: 2`  
+  `build_and_test:`  
+    `jobs:`  
+      `- visual_test`
 
-5. **Artifacts**: Save test results and logs as artifacts for easy debugging.
+#### **Notes**
 
-6. **Notifications**: Set up notifications for test failures, particularly for visual differences.
+* **Environment variables**: Set `APPLITOOLS_API_KEY` in CircleCI's project settings under environment variables.
 
-7. **Baseline Management**: Implement a strategy for managing baselines, possibly updating them automatically for certain types of changes.
+## **Managing baselines in a CI/CD context**
 
-8. **Environment Variables**: Use environment variables for configuration to keep sensitive data out of your code repository.
+### **Baseline branching**
 
-Example of implementing some of these best practices:
+Applitools Eyes supports baseline branching to align with your Git branches. This ensures that changes in feature branches don't affect the main branch's baselines.
 
-```javascript
-import { Eyes, BatchInfo, Configuration } from '@applitools/eyes-playwright';
+#### **Configuring baseline branching**
 
-const eyes = new Eyes();
+Set the `branchName` in your `eyesWorkerSettings`:
 
-const configuration = new Configuration();
-configuration.setBatch(
-  new BatchInfo(process.env.CI_COMMIT_REF_NAME || 'Local')
-);
-configuration.setApiKey(process.env.APPLITOOLS_API_KEY);
-configuration.setSaveNewTests(false);
-configuration.setExitcode(true);
+`// playwright.config.ts`  
+`export default {`  
+  `eyesWorkerSettings: {`  
+    `branchName: process.env.GIT_BRANCH || 'main',`  
+    `parentBranchName: 'main',`  
+  `},`  
+`};`
 
-eyes.setConfiguration(configuration);
+#### **Notes**
 
-// In your test
-test('Visual test', async ({ page }) => {
-  await eyes.open(page, 'My App', 'Test name', { width: 1024, height: 768 });
-  await page.goto('https://example.com');
-  await eyes.check('Page', Target.window().fully());
-  await eyes.close(false);
-});
+* **Environment variables**: Use environment variables like `GIT_BRANCH` to dynamically set the branch name.  
+* **Parent branch**: `parentBranchName` helps Applitools understand the relationship between branches.
 
-// After all tests
-afterAll(async () => {
-  const results = await eyes.getRunner().getAllTestResults(false);
-  console.log(results.toString());
-});
-```
+### **Handling baseline updates**
 
-By following these guidelines and examples, you can efficiently integrate Applitools Eyes visual testing into your CI/CD pipeline, ensuring that visual regressions are caught early in your development process.
+* **Accepting changes**: When intentional UI changes occur, accept them in the Applitools Dashboard to update the baseline for that branch.  
+* **Merging baselines**: When you merge your code, Applitools can automatically merge the baselines if the visual differences have been approved.
+
+## **Integrating visual tests into the development workflow**
+
+### **Running visual tests on pull requests**
+
+Set up your CI pipeline to run visual tests on every pull request. This allows you to:
+
+* **Catch visual regressions early**: Identify unintended UI changes before merging code.  
+* **Facilitate code reviews**: Provide visual diffs to reviewers for better understanding of UI changes.
+
+### **Reporting visual differences**
+
+You can integrate Applitools with tools like GitHub to report visual test results directly in pull requests.
+
+#### **Example: GitHub checks integration**
+
+* **Applitools GitHub integration**: Setup the Applitools Github integration to integrate test results into GitHub checks.  
+* **Configure notifications**: Set up notifications and permissions as needed.
+
+### **Collaborating with the team**
+
+* **Remarks and bugs**: Use the Applitools Dashboard to add comments on visual diffs.  
+* **Sharing results**: Share links to test results with team members for collaborative debugging.

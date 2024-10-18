@@ -1,158 +1,167 @@
-# Integration with Playwright
+# **Integration with Playwright**
 
-This guide explains how to integrate Applitools Eyes seamlessly with your Playwright tests. We'll cover the setup process, basic usage, and best practices for combining visual testing with your existing Playwright automation.
+In this section, we'll explore how to seamlessly integrate Applitools Eyes into your Playwright tests. You'll learn how to use the SDK within your tests, customize configurations, and work with Page Object Models (POMs) to enhance your visual testing strategy.
 
-## Setting Up Applitools Eyes in Your Playwright Project
+## **Using the SDK with Playwright tests**
 
-### Installation
+### **Importing Applitools modules**
 
-First, install the Applitools Eyes SDK for Playwright:
+To access Applitools features, import `test` and `expect` from `@applitools/eyes-playwright` in your test files:
 
-```bash
-npm install @applitools/eyes-playwright
-```
+`import { test, expect } from '@applitools/eyes-playwright';`
 
-### Importing and Initializing
+This replaces the default Playwright `test` and `expect` functions with Applitools-enhanced versions that support visual testing.
 
-In your test file, import the necessary modules and initialize the Eyes object:
+#### **Accessing the `eyes` object**
 
-```javascript
-import { test } from '@playwright/test';
-import { Eyes, Target } from '@applitools/eyes-playwright';
+The extended `test` object provides access to the `eyes` object within your test, enabling direct use of Applitools methods:
 
-test.describe('My First Visual Test Suite', () => {
-  let eyes;
+`test('Visual test using eyes.check()', async ({ page, eyes }) => {`
 
-  test.beforeEach(async () => {
-    eyes = new Eyes();
-    // Set your API key here if not using environment variables
-    // eyes.setApiKey('YOUR_API_KEY');
-  });
+  `await page.goto('https://example.com');`
 
-  // Your test cases will go here
+  ``// Visual checkpoint of the full page using the `Strict` match level``
 
-  test.afterEach(async () => {
-    await eyes.close();
-  });
-});
-```
+  `await eyes.check('Homepage', {`
 
-## Basic Usage
+    `fully: true,`
 
-Here's a basic example of how to add visual checks to your Playwright test:
+    `matchLevel: 'Strict',`
 
-```javascript
-test('Homepage visual test', async ({ page }) => {
-  await eyes.open(page, 'My Application', 'Homepage Test');
+  `});`
 
-  await page.goto('https://my-application.com');
+`});`
 
-  await eyes.check('Full Page', Target.window().fully());
+### **Visual checkpoints**
 
-  await page.click('#login-button');
+#### **Using `eyes.check()`**
 
-  await eyes.check('Login Form', Target.region('#login-form'));
-});
-```
+The `eyes.check()` method allows you to capture visual checkpoints with more explicit control. You can specify parameters such as the checkpoint name, match level, and regions to ignore.
 
-## Advanced Integration Techniques
+**Example:**
 
-### Using Playwright's Page Object Model
+`test('Visual test using eyes.check()', async ({ page, eyes }) => {`  
+  `await page.goto('https://example.com');`
 
-You can integrate Applitools checks into your Page Object Model:
+  `// Visual checkpoint with custom settings`  
+  `await eyes.check('Homepage', {`  
+    `// Capture the full page`  
+    `fully: true,`  
+    `// Set match level`  
+    `matchLevel: 'Strict',`  
+    `// Ignore dynamic content`  
+    `ignoreRegions: [page.locator('.dynamic-content')],`  
+  `});`  
+`});`
 
-```javascript
-class HomePage {
-  constructor(page, eyes) {
-    this.page = page;
-    this.eyes = eyes;
-  }
+### **Best practices**
 
-  async navigate() {
-    await this.page.goto('https://my-application.com');
-    await this.eyes.check('Home Page', Target.window().fully());
-  }
+* **Descriptive checkpoint names**: Provide meaningful names to your `eyes.check()` calls for easy identification in the Applitools Dashboard.  
+* **Use contextual settings**: Adjust settings like `matchLevel` and `ignoreRegions` based on the specific content being tested.  
+* **Use textual assertions only when necessary**: Use `eyes.check()` to assert appearance and every functionality that has a visual aspect, thus reducing your test code by 80%. Leave only those textual assertions needed to validate certain dynamic aspects that require programmatic evaluation.  
+* **Encapsulate Visual Checks**: Keep visual checkpoints within relevant page object methods or custom fixtures for better organization.
 
-  async clickLoginButton() {
-    await this.page.click('#login-button');
-    await this.eyes.check('Login Button Clicked', Target.window().fully());
-  }
-}
+## **Advanced configuration**
 
-test('Using Page Object Model', async ({ page }) => {
-  await eyes.open(page, 'My Application', 'POM Test');
+You can pass various options both capture methods in order to customize the behavior:
 
-  const homePage = new HomePage(page, eyes);
-  await homePage.navigate();
-  await homePage.clickLoginButton();
-});
-```
+* **`fully`**: Capture the full page when set to `true`.  
+* **`region`**: Define a specific region or element to capture.  
+* **`matchLevel`**: Set the match level, which determines the way by which Eyes compares the checkpoint image with the baseline image. ‘Strict’ is the recommended value.  
+* **`ignoreRegions`**: Specify regions to ignore during comparison.  
+* **`floatingRegions`**: Define floating regions for containers of elements that may move.  
+* **`IgnoreDisplacements`**: suppresses differences caused by elements shifting positions.
 
-### Handling Dynamic Content
+**Example: Capturing a specific element**
 
-For pages with dynamic content, you can use ignore regions or match levels:
+`test('Element visual test using eyes.check()', async ({ page, eyes }) => {`
 
-```javascript
-await eyes.check(
-  'Dynamic Page',
-  Target.window().fully().ignoreRegion('#dynamic-content').layout()
-);
-```
+  `await page.goto('https://example.com');`
 
-## Best Practices
+  `const navbar = page.locator('.navbar');`
 
-1. **Consistent Viewport Sizes**: Set consistent viewport sizes for your tests to ensure reproducibility.
+  `// Visual checkpoint of a specific element`
 
-   ```javascript
-   await page.setViewportSize({ width: 1280, height: 720 });
-   ```
+  `await eyes.check('Navbar', {`
 
-2. **Meaningful Test Names**: Use descriptive names for your tests and check points to make debugging easier.
+    `region: navbar,`
 
-3. **Batching Related Tests**: Group related tests into batches for easier management.
+    `matchLevel: 'Layout',`
 
-   ```javascript
-   eyes.setBatch({
-     id: 'My batch name',
-     name: 'My batch',
-   });
-   ```
+  `});`
 
-4. **Error Handling**: Always use try-finally blocks to ensure Eyes is properly closed, even if an error occurs.
+`});`
 
-   ```javascript
-   try {
-     // Your test code here
-   } finally {
-     await eyes.abort();
-   }
-   ```
+### **Overriding default behaviors**
 
-5. **Parallel Execution**: Leverage Playwright's parallel execution capabilities with Applitools' Visual Grid for faster test runs.
+You can adjust global settings in your `playwright.config.ts` file using `eyesTestSettings` and `eyesWorkerSettings`:
 
-## Combining Functional and Visual Tests
+`// playwright.config.ts`  
+`export default {`  
+  `eyesTestSettings: {`  
+    `matchLevel: 'Strict',`  
+    `ignoreDisplacements: true,`  
+  `},`  
+  `eyesWorkerSettings: {`  
+    `batch: {`  
+      `name: 'My Test Batch',`  
+    `},`  
+    `failTestsOnDiff: 'afterEach', // Options: 'afterEach', 'afterAll', false`  
+  `},`  
+`};`
 
-You can combine functional assertions with visual checks in the same test:
+#### **Examples of global settings**
 
-```javascript
-test('Login functionality and visuals', async ({ page }) => {
-  await eyes.open(page, 'My Application', 'Login Test');
+* `matchLevel`: Default match level for all tests.  
+* `ignoreDisplacements`: Ignores minor shifts in element positions.  
+* `batch`: Sets the batch name for grouping tests.  
+* `failTestsOnDiff`: Controls when to throw exceptions on visual differences.
 
-  await page.goto('https://my-application.com/login');
-  await eyes.check('Login Page', Target.window().fully());
+## **Working with Page Object Models (POMs)**
 
-  await page.fill('#username', 'testuser');
-  await page.fill('#password', 'password123');
-  await page.click('#submit-button');
+Integrating `eyes` within your Page Object Models helps maintain clean and organized test code.
 
-  // Functional assertion
-  await expect(page.locator('.welcome-message')).toHaveText(
-    'Welcome, testuser!'
-  );
+**Example:**
 
-  // Visual check
-  await eyes.check('After Login', Target.window().fully());
-});
-```
+`// page-objects/LoginPage.js`  
+`class LoginPage {`  
+  `constructor(eyes, page) {`  
+    `this.eyes = eyes;`  
+    `this.page = page;`  
+    `this.usernameInput = page.locator('#username');`  
+    `this.passwordInput = page.locator('#password');`  
+    `this.loginButton = page.locator('#login');`  
+  `}`
 
-By following these integration techniques and best practices, you can create robust, efficient tests that combine Playwright's powerful automation capabilities with Applitools' advanced visual testing features.
+  `async navigate() {`  
+    `await this.page.goto('https://example.com/login');`  
+  `}`
+
+  `async login(username, password) {`  
+    `await this.usernameInput.fill(username);`  
+    `await this.passwordInput.fill(password);`  
+    `await this.loginButton.click();`  
+  `}`
+
+  `async verifyLoginPage() {`  
+    `await this.eyes.check('Login Page', {`  
+      `fully: true,`  
+    `});`  
+  `}`  
+`}`
+
+`module.exports = { LoginPage };`
+
+Usage in the test:
+
+**`// tests/login.test.js`**  
+`import { test } from '@applitools/eyes-playwright';`  
+`const { LoginPage } = require('../page-objects/LoginPage');`
+
+`test('Login page visual test using eyes.check()', async ({ page, eyes }) => {`  
+  `const loginPage = new LoginPage(eyes, page);`  
+  `await loginPage.navigate();`
+
+  `// Visual checkpoint within the page object`  
+  `await loginPage.verifyLoginPage();`  
+`});`

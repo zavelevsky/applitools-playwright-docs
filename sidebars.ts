@@ -22,12 +22,26 @@ import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   /** Main documentation sidebar */
   docs: [
-    /** @type {string} Default item using filename as ID and title */
-    'introduction',
-    'getting-started',
-    'core-concepts',
-    'integration-with-playwright',
-    /** @type {SidebarItem} Item with custom label */
+    {
+      type: 'doc',
+      id: 'quick-start',
+      label: 'Quick Start',
+    },
+    {
+      type: 'doc',
+      id: 'introduction',
+      label: 'Introduction',
+    },
+    {
+      type: 'doc',
+      id: 'integration-with-playwright',
+      label: 'Integration with Playwright',
+    },
+    {
+      type: 'doc',
+      id: 'core-concepts',
+      label: 'Core Concepts',
+    },
     {
       type: 'doc',
       id: 'advanced-usage',
@@ -35,15 +49,14 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'doc',
-      id: 'ci-cd-integration',
-      label: 'CI/CD Integration',
-    },
-    {
-      type: 'doc',
       id: 'applitools-dashboard',
       label: 'Applitools Dashboard',
     },
-    /** @type {SidebarCategory} Nested category with mixed item types */
+    {
+      type: 'doc',
+      id: 'ci-cd-integration',
+      label: 'CI/CD Integration',
+    },
     {
       type: 'category',
       collapsed: false,
@@ -51,29 +64,21 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'doc',
-          id: 'guides/choosing-what-to-test',
-          label: 'Choosing What to Visually Test', // Custom label
+          id: 'guides/maintaining-tests',
+          label: 'Maintaining Visual Tests Over Time',
         },
-        'guides/maintaining-tests',
-        'guides/handling-failures',
-        'guides/scaling-visual-testing',
         {
           type: 'doc',
           id: 'guides/code-reviews',
-          label: 'Visual Testing in Code Reviews', // Custom label
+          label: 'Conducting Code Reviews with Visual Test Results',
         },
-        'guides/root-cause-analysis',
       ],
     },
-    'troubleshooting',
     {
       type: 'doc',
-      id: 'migration',
-      label: 'Migrating to Applitools Eyes',
+      id: 'examples-and-tutorials',
+      label: 'Examples and Tutorials',
     },
-    'examples-and-tutorials',
-    'community-and-resources',
-    'release-notes',
   ],
   /** API reference sidebar */
   api: [

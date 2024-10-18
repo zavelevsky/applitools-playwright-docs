@@ -1,189 +1,110 @@
-# Maintaining Visual Tests
+# **Maintaining Visual Tests Over Time**
 
-Maintaining visual tests is crucial for ensuring their continued effectiveness and efficiency. This guide will help you keep your Applitools Eyes tests with Playwright up-to-date and manageable as your application evolves.
+Maintaining visual tests is crucial to ensure they remain effective and relevant as your application evolves. This guide provides strategies and best practices for managing visual tests over time, handling intentional UI changes, and keeping your test suite maintainable and reliable.
 
-## Table of Contents
-1. [Understanding the Need for Test Maintenance](#understanding-the-need-for-test-maintenance)
-2. [Updating Baselines](#updating-baselines)
-3. [Handling Intended Changes](#handling-intended-changes)
-4. [Managing Test Debt](#managing-test-debt)
-5. [Optimizing Test Performance](#optimizing-test-performance)
-6. [Dealing with Flaky Tests](#dealing-with-flaky-tests)
-7. [Version Control and CI/CD Considerations](#version-control-and-cicd-considerations)
-8. [Best Practices](#best-practices)
+---
 
-## Understanding the Need for Test Maintenance
+## **The Importance of maintenance**
 
-Visual tests need regular maintenance due to:
-- Intentional UI changes
-- New features or removed elements
-- Changes in dynamic content
-- Updates to testing infrastructure or dependencies
+* **Adaptation**: Your application's UI will change due to new features, redesigns, or updates.  
+* **Accuracy**: Regular maintenance ensures your visual tests accurately reflect the current state of your application.  
+* **Efficiency**: Proactive management reduces false positives and unnecessary debugging.
 
-Regular maintenance ensures tests remain valuable and don't become a burden.
+---
 
-## Updating Baselines
+## **Strategies for updating baselines**
 
-When intentional UI changes occur:
+Baselines are the reference images used for visual comparisons. When intentional UI changes occur, you'll need to update these baselines.
 
-1. Run your tests to identify affected checkpoints
-2. Review changes in the Applitools dashboard
-3. Accept new images as baselines for affected checkpoints
+### **1\. Review changes regularly**
 
-```javascript
-// After making UI changes, run your tests
-test('Updated homepage layout', async ({ page }) => {
-  await eyes.open(page, 'MyApp', 'Homepage Test');
-  await page.goto('/');
-  await eyes.check('Full page', Target.window().fully());
-  await eyes.close();
-});
+* **Schedule reviews**: Establish a routine (e.g., after each sprint) to review visual test results.  
+* **Collaborate**: Involve developers, testers, and designers in the review process to ensure changes are intentional and acceptable.
 
-// Review results in the dashboard and accept new baselines
-```
+### **2\. Use batch approvals**
 
-## Handling Intended Changes
+* **Batch updates**: When multiple tests are affected by a UI change, use batch operations in the Applitools Dashboard to approve all related changes efficiently.  
+* **Consistency**: Ensure that all affected baselines are updated simultaneously to prevent inconsistencies.
 
-For planned UI updates:
+### **3\. Leverage version control**
 
-1. Use the `setMatchLevel` method to temporarily relax comparison criteria:
+* **Branch-specific baselines**: Utilize Applitools' branching features to manage baselines per feature branch.  
+* **Merge strategies**: When merging branches, merge corresponding baselines to keep the main branch up-to-date.
 
-```javascript
-test('Redesigned navbar', async ({ page }) => {
-  await eyes.open(page, 'MyApp', 'Navbar Test');
-  await page.goto('/');
-  await eyes.check('Navbar', Target.region('#navbar').layout());
-  await eyes.close();
-});
-```
+---
 
-2. Update test scripts to reflect new selectors or workflows
+## **Handling intentional UI changes**
 
-3. Consider using the `applitools.ignore` tag in your HTML to ignore specific elements during transition periods:
+When intentional UI updates occur, it's essential to manage visual tests to reflect these changes accurately.
 
-```html
-<div class="applitools-ignore">
-  <!-- New element that should be ignored temporarily -->
-</div>
-```
+### **1\. Communicate changes early**
 
-## Managing Test Debt
+* **Design Documentation**: Keep design specifications updated and accessible.  
+* **Team Notifications**: Inform the testing team of upcoming UI changes to prepare for baseline updates.
 
-Regularly review and refactor your test suite:
+### **2\. Update baselines proactively**
 
-1. Remove obsolete tests
-2. Combine redundant checks
-3. Update tests to reflect current best practices
+* **Pre-update baselines**: Before merging UI changes into the main branch, run visual tests and update baselines accordingly.  
+* **Staging environments**: Use staging environments to validate UI changes and update baselines before production deployment.
 
-```javascript
-// Before: Multiple separate checks
-await eyes.check('Header', Target.region('#header'));
-await eyes.check('Footer', Target.region('#footer'));
+### **3\. Annotate changes**
 
-// After: Combined check
-await eyes.check('Header and Footer', Target.region('#header, #footer'));
-```
+* **Remarks and issues**: Use the Applitools Dashboard to add remarks explaining the nature of intentional changes.  
+* **Change history**: Maintain a log of changes for future reference.
 
-## Optimizing Test Performance
+---
 
-As your test suite grows, optimize for speed:
+## **Best practices for baseline management**
 
-1. Use batches to group related tests
-2. Leverage the Ultrafast Grid for parallel execution
-3. Minimize redundant checks and page loads
+### **Keep baselines clean and organized**
 
-```javascript
-const { ClassicRunner, BatchInfo } = require('@applitools/eyes-playwright');
+* **Naming conventions**: Use descriptive and consistent names for tests and baselines.  
+* **Archive old baselines**: Remove or archive outdated baselines to reduce clutter.
 
-const batch = new BatchInfo('My batch name');
+### **Avoid over-updating baselines**
 
-test.describe('My test suite', () => {
-  let eyes;
-  let runner;
+* **Verify changes**: Ensure that changes are indeed intentional before updating baselines.  
+* **Partial updates**: Update only the affected areas when possible, rather than the entire baseline.
 
-  test.beforeAll(async () => {
-    runner = new ClassicRunner();
-  });
+### **Use ignore regions wisely**
 
-  test.beforeEach(async ({ page }) => {
-    eyes = new Eyes(runner);
-    await eyes.setBatch(batch);
-  });
+* **Dynamic content**: Apply ignore regions to areas with frequently changing content to reduce false positives.  
+* **balance**: Avoid overusing ignore regions, as they may mask unintended changes.
 
-  // Your test cases here
+---
 
-  test.afterAll(async () => {
-    const results = await runner.getAllTestResults();
-    console.log(results);
-  });
-});
-```
+## **Implementing maintenance in your workflow**
 
-## Dealing with Flaky Tests
+### **Integrate with CI/CD pipelines**
 
-To reduce flakiness:
+* **Automated testing**: Run visual tests automatically during builds to catch issues early.  
+* **Notifications**: Configure alerts for test failures to prompt timely reviews.
 
-1. Use strict selectors
-2. Implement proper waits
-3. Handle dynamic content appropriately
+### **Establish ownership**
 
-```javascript
-// Use data-testid for more stable selectors
-await eyes.check('User profile', Target.region('[data-testid="user-profile"]'));
+* **Assign responsibilities**: Designate team members responsible for reviewing and updating baselines.  
+* **Collaborative tools**: Utilize tools like the Applitools Dashboard to facilitate teamwork.
 
-// Wait for network idle before checking
-await page.waitForLoadState('networkidle');
-await eyes.check('After load', Target.window().fully());
+### **Monitor test stability**
 
-// Ignore dynamic regions
-await eyes.check('Dashboard', Target.window().fully().ignoreRegions('#live-updates'));
-```
+* **Flaky tests**: Identify and address tests that frequently fail due to environmental issues.  
+* **Consistent environments**: Ensure testing environments are stable and consistent to reduce false positives.
 
-## Version Control and CI/CD Considerations
+---
 
-1. Store test scripts in version control alongside application code
-2. Use branches for significant test updates
-3. Implement code reviews for test changes
-4. Automate baseline updates in your CI/CD pipeline
+## **Tips for long-term success**
 
-```yaml
-# Example GitHub Actions workflow step
-- name: Update Applitools baselines
-  if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  run: npx playwright test
-  env:
-    APPLITOOLS_UPDATE_BASELINE: 'true'
-```
+### **Educate the team**
 
-## Best Practices
+* **Training**: Provide training on visual testing best practices and tools.  
+* **Guidelines**: Develop documentation outlining processes for maintaining visual tests.
 
-1. **Regular Maintenance**: Schedule routine test reviews and updates
+### **Regular audits**
 
-2. **Documentation**: Keep test documentation up-to-date, including the purpose of each visual check
+* **Review test coverage**: Periodically assess which areas are being tested visually and adjust as needed.  
+* **Optimize performance**: Remove redundant tests and focus on high-impact areas.
 
-3. **Modular Design**: Create reusable functions for common test steps
+### **Stay updated with Applitools features**
 
-   ```javascript
-   async function checkCommonElements(page, eyes) {
-     await eyes.check('Header', Target.region('#header'));
-     await eyes.check('Footer', Target.region('#footer'));
-   }
-
-   test('Homepage', async ({ page }) => {
-     await eyes.open(page, 'MyApp', 'Homepage Test');
-     await page.goto('/');
-     await checkCommonElements(page, eyes);
-     // Additional homepage-specific checks
-     await eyes.close();
-   });
-   ```
-
-4. **Consistent Naming**: Use clear, consistent naming conventions for tests and checkpoints
-
-5. **Feedback Loop**: Establish a process for developers to easily update tests when making UI changes
-
-6. **Periodic Full Comparisons**: Occasionally run full-page comparisons to catch unexpected changes
-
-7. **Monitor Test Metrics**: Keep track of test run times, failure rates, and maintenance frequency to identify areas for improvement
-
-By following these guidelines and best practices, you can maintain a robust and efficient visual testing suite that evolves alongside your application, providing continuous value to your development process.
+* **New capabilities**: Keep an eye on updates to Applitools that could enhance your maintenance process.  
+* **Community engagement**: Participate in forums or user groups to learn from others' experiences.

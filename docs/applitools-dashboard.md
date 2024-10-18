@@ -1,149 +1,183 @@
-# Applitools Dashboard Guide for Playwright Users
+# **Applitools Dashboard**
 
-The Applitools dashboard is a powerful web-based interface for managing and analyzing your visual tests. This guide will walk you through the key features of the dashboard and how to use them effectively with your Playwright tests.
+The Applitools Dashboard is a powerful web-based tool that allows you to view, analyze, and manage your visual test results. It provides an intuitive interface for reviewing visual differences, updating baselines, collaborating with team members, and gaining insights into your application's UI across different versions and environments.
 
-## Table of Contents
+In this section, we'll explore how to:
 
-1. [Accessing the Dashboard](#accessing-the-dashboard)
-2. [Dashboard Overview](#dashboard-overview)
-3. [Test Results](#test-results)
-4. [Analyzing Visual Differences](#analyzing-visual-differences)
-5. [Managing Baselines](#managing-baselines)
-6. [Batch Management](#batch-management)
-7. [Team Collaboration](#team-collaboration)
-8. [Integrations](#integrations)
-9. [Insights and Analytics](#insights-and-analytics)
-10. [Best Practices](#best-practices)
+* Access the Applitools dashboard  
+* Acquire your Applitools API key  
+* Navigate and understand the dashboard interface  
+* Analyze test results and visual differences  
+* Manage baselines and approve changes  
+* Collaborate with your team  
+* Utilize advanced features like root cause analysis
 
-## Accessing the Dashboard
+---
 
-1. Go to [eyes.applitools.com](https://eyes.applitools.com)
-2. Log in with your Applitools account credentials
+## **Accessing the Applitools Dashboard**
 
-## Dashboard Overview
+### **Step 1: Log in**
 
-The dashboard provides several key sections:
+To access the dashboard:
 
-- **Recent Tests**: Shows your most recent test runs
-- **Test Results**: Detailed view of all your test results
-- **Batches**: Grouped test runs
-- **Insights**: Analytics and trends of your visual testing
-- **Admin**: Account and team management settings
+1. Navigate to the [Applitools Dashboard](https://eyes.applitools.com/).  
+2. Log in with your Applitools account credentials.  
+   *If you don't have an account yet, you can sign up for a free account.*
 
-## Test Results
+### **Step 2: Acquiring your Applitools API key**
 
-When you run your Playwright tests with Applitools Eyes, the results will appear in the dashboard. Each test result includes:
+Your API key is essential for connecting your tests to the Applitools Eyes cloud service.
 
-- Test name
-- Application name
-- Browser and viewport size
-- Pass/Fail status
-- Execution time
-- Number of steps (checkpoints)
+#### **How to obtain your API key:**
 
-Click on a test to see detailed results for each checkpoint.
+1. Once logged in, click on your account name or avatar in the top-right corner.  
+2. Select **"My API Key"** from the dropdown menu.  
+   *Placeholder for Screenshot: \[**My API Key Location**\]*  
+3. Copy the displayed API key.  
+   *Placeholder for Screenshot: \[**Copy API Key**\]*
 
-## Analyzing Visual Differences
+Use this API key in your project by setting it as an environment variable or entering it when prompted during the CLI setup.  
+`export APPLITOOLS_API_KEY='your_api_key_here'`  
+---
 
-When a test fails due to visual differences:
+## **Navigating the dashboard interface**
 
-1. Click on the failed test
-2. You'll see a side-by-side comparison of the baseline and current images
-3. Differences are highlighted in pink
-4. Use the toolbar to:
-   - Zoom in/out
-   - Toggle difference highlighting
-   - Switch between various comparison modes (Slider, Side by Side, etc.)
+The Applitools Dashboard consists of several key components:
 
-Example of how this relates to your Playwright test:
+### **Test results page**
 
-```javascript
-test('Homepage layout', async ({ page }) => {
-  await eyes.open(page, 'My App', 'Homepage Test');
-  await page.goto('https://myapp.com');
-  await eyes.check('Full page', Target.window().fully());
-  // If this check fails, you'll see the differences in the dashboard
-  await eyes.close();
-});
-```
+After logging in, you'll see the **Test Results** page, which lists all your recent test runs.
 
-## Managing Baselines
+* **Batch List**: A list of test batches, grouped by batch name.  
+* **Filter and Search**: Tools to filter tests by date, application name, batch name, or status.  
+  *Placeholder for Screenshot: \[**Test Results Page Overview**\]*
 
-Baselines are the expected images that your tests are compared against. To manage baselines:
+### **Batch details**
 
-1. Go to the test results page
-2. Click on a checkpoint
-3. If you want to update the baseline, click "Accept" on the current image
+Clicking on a batch opens the **Batch Details** view, showing individual tests within that batch.
 
-Remember, updating a baseline will affect future test runs.
+* **Test List**: A list of tests with their statuses (Passed, Unresolved, Failed).  
+* **Batch Information**: Details like batch name, start time, and duration.  
+  *Placeholder for Screenshot: \[**Batch Details View**\]*
 
-## Batch Management
+### **Test details and steps**
 
-Batches group related tests together. In your Playwright tests, you can create batches like this:
+Selecting a test displays the **Test Details**, where you can view each step and its comparison results.
 
-```javascript
-const eyes = new Eyes();
-eyes.setBatch({
-  id: 'My batch id', // optional
-  name: 'My batch name',
-  sequenceName: 'My sequence name', // optional
-});
-```
+* **Step List**: Screenshots captured at each visual checkpoint.  
+* **Baseline and Checkpoint Images**: Side-by-side comparison of the baseline and the new screenshot.  
+* **Differences Overlay**: Highlighted areas where visual differences were detected.  
+  *Placeholder for Screenshot: \[**Test Details and Steps**\]*
 
-In the dashboard:
+---
 
-1. Go to the "Batches" tab
-2. Click on a batch to see all tests in that batch
-3. Use batch statuses (Passed, Failed, Unresolved) for quick overview
+## **Analyzing test results and visual differences**
 
-## Team Collaboration
+### **Viewing visual diffs**
 
-The dashboard facilitates team collaboration:
+For steps with visual differences:
 
-1. Invite team members (Admin section)
-2. Assign unresolved differences to team members
-3. Add comments to specific test results
-4. Use the activity log to track changes
+1. Click on the step to open the comparison view.  
+2. Use the toolbar to switch between different comparison modes:  
+   * **Side-by-Side**: Displays baseline and checkpoint images next to each other.  
+   * **Toggle**: Quickly switch between images to spot changes.  
+3. *Placeholder for Screenshot: \[**Visual Comparison Modes**\]*
 
-## Integrations
+### **Interpreting differences**
 
-Applitools dashboard integrates with various tools:
+* **Highlighted Areas**: Differences are marked with colored overlays.  
+* **Ignore Regions**: Areas you specified to ignore are indicated.
 
-- **Bug Tracking**: Automatically create issues in JIRA, GitHub, etc.
-- **CI/CD**: View test results directly from your CI/CD pipeline
-- **Slack**: Get notifications about test results
+### **Root cause analysis**
 
-To set up integrations, go to the Admin section in the dashboard.
+For advanced debugging, use the **Root Cause Analysis** feature:
 
-## Insights and Analytics
+1. Click on the **"Root Cause"** button (represented by a brackets icon).  
+2. View differences in the underlying DOM and CSS.  
+3. Identify specific code changes that led to visual differences.  
+   *Placeholder for Screenshot: \[**Root Cause Analysis View**\]*
 
-The Insights tab provides valuable analytics:
+---
 
-- Test coverage over time
-- Common failure patterns
-- Test execution times
-- Browser and device coverage
+## **Managing baselines and approving changes**
 
-Use these insights to improve your testing strategy and identify areas needing more attention.
+### **Accepting or rejecting changes**
 
-## Best Practices
+For each test step with differences:
 
-1. **Consistent Naming**: Use clear, consistent names for tests and batches in your Playwright code:
+* **Accept (Approve)**: Confirms the changes are intentional, updating the baseline.  
+* **Reject**: Marks the differences as unintended, indicating a potential bug.  
+  *Placeholder for Screenshot: \[**Accept or Reject Changes Buttons**\]*
 
-   ```javascript
-   await eyes.open(page, 'MyApp', `Homepage - ${browserName}`);
-   ```
+#### **How to accept changes:**
 
-2. **Regular Baseline Updates**: Review and update baselines regularly, especially after intended UI changes.
+1. Click the **"Thumbs Up"** icon to accept the changes.  
+2. Optionally, add a remark explaining the acceptance.
 
-3. **Use Batch Info**: Group related tests into batches for easier management:
+#### **How to reject changes:**
 
-   ```javascript
-   eyes.setBatch({ name: 'Sprint 34 - Homepage Redesign' });
-   ```
+1. Click the **"Thumbs Down"** icon to reject the changes.  
+2. Optionally, add a bug detailing the issue.
 
-4. **Leverage Insights**: Regularly review the Insights tab to optimize your testing strategy.
+### **Saving decisions**
 
-5. **Collaborative Review**: Encourage team members to review and discuss visual differences together.
+After reviewing all differences:
 
-By effectively using the Applitools dashboard, you can streamline your visual testing process, quickly identify and resolve issues, and maintain high-quality user interfaces across your application.
+* Click on the **"Save"** button to apply your decisions.  
+* The baseline images will be updated accordingly for future test runs.  
+  *Placeholder for Screenshot: \[**Save Decisions Button**\]*
+
+---
+
+## **Collaborating with your team**
+
+### **Sharing test results**
+
+* **Direct Links**: Share URLs to specific tests or steps with team members.
+
+### **Adding remarks and bugs**
+
+* **Remarks**: Add remarks on specific steps or differences to communicate with your team.  
+* **Bugs**: Use tools to highlight areas of concern on the screenshots.  
+  *Placeholder for Screenshot: \[**Remarks and Bugs Interface**\]*
+
+### **Integrations**
+
+Applitools integrates with various tools to enhance collaboration:
+
+* **Jira**: Create Jira issues directly from the dashboard.  
+* **Slack**: Receive notifications and updates in Slack channels.  
+* **GitHub/GitLab**: Link test results to pull requests.
+
+---
+
+## **Utilizing advanced features**
+
+### **Batch management**
+
+* **Batch grouping**: Organize tests into batches for better management.  
+* **Batch comparison**: Compare entire batches to identify differences across test runs.  
+  *Placeholder for Screenshot: \[**Batch Management Interface**\]*
+
+### **Test configuration overrides**
+
+* Modify test configurations directly from the dashboard for subsequent runs.
+
+### **Accessibility testing**
+
+* Leverage Applitools to perform accessibility checks alongside visual testing.
+
+### **Insights and analytics**
+
+* Access metrics and trends over time.  
+* Identify patterns in test failures or UI changes.  
+  *Placeholder for Screenshot: \[**Insights and Analytics Dashboard**\]*
+
+---
+
+## **Best practices**
+
+* **Regular reviews**: Schedule periodic reviews of test results to maintain baseline accuracy.  
+* **Collaborative workflow**: Encourage team members to participate in reviewing and approving changes.  
+* **Baseline maintenance**: Update baselines thoughtfully to prevent masking unintended changes.  
+* **Use descriptive names**: Name your tests and batches meaningfully to simplify navigation.
