@@ -15,6 +15,14 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --applitools-green: #00c2a8;
+  --keyword-color-light: #0000ff; /* Bright blue for better visibility in light mode */
+  --keyword-color-dark: #569cd6; /* Light blue for dark mode */
+  --function-color: #795e26; /* Brown for functions */
+  --string-color: #a31515; /* Dark red for strings */
+  --comment-color: #008000; /* Green for comments */
+  --inline-code-bg: #f0f0f0;
+  --inline-code-color: var(--applitools-green);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,4 +35,158 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --inline-code-bg: #2d333b;
+  --inline-code-color: var(--applitools-green);
+  --keyword-color-light: var(--keyword-color-dark);
+  --function-color: #dcdcaa;
+  --string-color: #ce9178;
+  --comment-color: #6a9955;
+}
+
+/* Inline code styling */
+code {
+  background-color: var(--inline-code-bg);
+  color: var(--inline-code-color);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Bash code block styling */
+.language-bash .prism-code {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding-top: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.language-bash .prism-code::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2rem;
+  background-color: #3a3a3a;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.language-bash .prism-code::after {
+  content: '● ● ●';
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.language-bash .prism-code::after {
+  content: '';
+  position: absolute;
+  top: 0.7rem;
+  left: 1rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: #ff5f56;
+  border-radius: 50%;
+  box-shadow: 1.5rem 0 0 #ffbd2e, 3rem 0 0 #27c93f;
+}
+
+/* TypeScript code block styling */
+.language-typescript .prism-code {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Keyword styling for both inline and block code */
+:not(pre) > code .token.keyword,
+.token.keyword {
+  color: var(--keyword-color-light) !important;
+  font-weight: bold;
+}
+
+/* Function styling */
+.token.function {
+  color: var(--function-color) !important;
+}
+
+/* String styling */
+.token.string {
+  color: var(--string-color) !important;
+}
+
+/* Comment styling */
+.token.comment {
+  color: var(--comment-color) !important;
+  font-style: italic;
+}
+
+/* Bash-specific keyword styling */
+.language-bash .token.function,
+.language-bash .token.builtin {
+  color: var(--keyword-color-light) !important;
+  font-weight: bold;
+}
+
+/* Additional syntax highlighting for specific keywords */
+.token.builtin,
+.token.class-name,
+.token.namespace {
+  color: var(--keyword-color-light) !important;
+}
+
+/* Ensure Applitools green is used for certain keywords */
+.token.keyword[class*='control-flow'],
+.token.keyword[class*='operator'] {
+  color: var(--applitools-green) !important;
+}
+
+/* Improve visibility for pale keywords in light mode */
+[data-theme='light'] .token.function,
+[data-theme='light'] .language-bash .token.function,
+[data-theme='light'] .language-bash .token.builtin {
+  color: #0000ff !important; /* Bright blue for better visibility */
+}
+
+/* Ensure proper contrast in dark mode */
+[data-theme='dark'] .language-bash .prism-code,
+[data-theme='dark'] .language-typescript .prism-code {
+  background-color: #2a2a2a;
+}
+
+[data-theme='dark'] .language-bash .prism-code::before {
+  background-color: #3a3a3a;
+}
+
+/* Add a subtle background pattern */
+body {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Add a subtle box shadow to content areas */
+.main-wrapper {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Style headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Add a subtle animation to links */
+a {
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  text-decoration: none;
 }
