@@ -137,11 +137,11 @@ floatingRegions: [
   scrollRootElement: page.locator('#content'),
 ```
 
-- **`hook`** (object):  
+- **`hooks`** (object):  
   JavaScript code to run before capturing the screenshot.
 
 ```typescript
-  hook: {
+  hooks: {
     beforeCaptureScreenshot: "document.querySelector('#ad-banner').style.display = 'none';",
   },
 ```
@@ -171,6 +171,39 @@ floatingRegions: [
 
   `ignoreDisplacements: true,`
 
+- **`ignoreCaret`** (boolean):  
+  If `true`, ignores the blinking caret in text inputs during visual comparisons.
+
+  `ignoreCaret: true,`
+
+- **`layoutBreakpoints`** (boolean | number\[\]):  
+  Enables responsive design testing at specified breakpoints.
+
+  - If `true`, breakpoints are inferred from the application's CSS.
+  - If an array of numbers, specifies the widths at which to capture screenshots
+
+  **Note**: This option is relevant only for UFG. It allows the SDK to fetch viewport-specific resources, which are subsequently used for rendering on the UFG. This is rarely needed, but when necessary, it's crucial for accurate rendering.
+
+```typescript
+layoutBreakpoints: [320, 768, 1024],
+```
+
+- **`visualGridOptions`** (object):  
+  Additional options for the Ultrafast Grid rendering.
+
+  - **`chromeHeadless`** (boolean):  
+    Set to `false` to use regular Chrome instead of Headless Chrome.
+
+  - **`polyfillAdoptedStyleSheets`** (boolean):  
+    Controls the polyfill for Adopted StyleSheets.
+
+```typescript
+visualGridOptions: {
+  chromeHeadless: false,
+  polyfillAdoptedStyleSheets: true,
+},
+```
+
 ### Example Usage
 
 ```typescript
@@ -197,7 +230,7 @@ test('Visual Test with Regions', async ({ page, eyes }) => {
         type: 'BoldText',
       },
     ],
-    hook: {
+    hooks: {
       beforeCaptureScreenshot:
         "document.querySelector('.modal').style.display = 'none';",
     },

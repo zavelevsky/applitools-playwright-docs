@@ -32,9 +32,9 @@ Your API key is essential for connecting your tests to the Applitools Eyes cloud
 
 1. Once logged in, click on your account name or avatar in the top-right corner.
 2. Select **"My API Key"** from the dropdown menu.  
-   _Placeholder for Screenshot: [**My API Key Location**]_
+   ![My API Key Location](/img/api-key.png)
 3. Copy the displayed API key.  
-   _Placeholder for Screenshot: [**Copy API Key**]_
+   ![My API Key Dialog](/img/api-key-dialog.png)
 
 Use this API key in your project by setting it as an environment variable or entering it when prompted during the CLI setup.
 
@@ -54,7 +54,7 @@ After logging in, you'll see the **Test Results** page, which lists all your rec
 
 - **Batch List**: A list of test batches, grouped by batch name.
 - **Filter and Search**: Tools to filter tests by date, application name, batch name, or status.  
-  _Placeholder for Screenshot: [**Test Results Page Overview**]_
+  ![Batch list and filters](/img/batch-list.png)
 
 ### Batch details
 
