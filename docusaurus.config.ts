@@ -59,7 +59,7 @@ const config: Config = {
         },
         {
           type: 'doc',
-          docId: 'api/eyes-object',
+          docId: 'api/overview',
           position: 'left',
           label: 'API',
         },

@@ -82,12 +82,28 @@ const sidebars: SidebarsConfig = {
   ],
   /** API reference sidebar */
   api: [
-    'api/eyes-object',
-    'api/configuration',
-    'api/check-methods',
-    'api/selectors-and-locators',
-    'api/customization',
-    'api/advanced-features',
+    {
+      type: 'doc',
+      id: 'api/overview',
+      label: 'Overview',
+    },
+    'api/common-configuration',
+    'api/runner-configuration',
+    {
+      type: 'doc',
+      id: 'api/advanced-configuration',
+      label: 'Advanced Configuration',
+    },
+    {
+      type: 'doc',
+      id: 'api/eyes-check',
+      label: 'Eyes Check Method',
+    },
+    {
+      type: 'doc',
+      id: 'api/defining-regions',
+      label: 'Defining Regions',
+    },
   ],
 };
 
