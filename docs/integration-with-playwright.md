@@ -6,13 +6,13 @@ In this section, we'll explore how to seamlessly integrate Applitools Eyes into 
 
 ### Importing Applitools modules
 
-To access Applitools features, import `test` and `expect` from `@applitools/eyes-playwright` in your test files:
+To access Applitools features, import `test` from `@applitools/eyes-playwright` in your test files:
 
 ```typescript
-import { test, expect } from '@applitools/eyes-playwright';
+import { test } from '@applitools/eyes-playwright';
 ```
 
-This replaces the default Playwright `test` and `expect` functions with Applitools-enhanced versions that support visual testing.
+This replaces the default Playwright `test` function with Applitools-enhanced version that supports visual testing.
 
 #### Accessing the `eyes` object
 
@@ -90,29 +90,26 @@ test('Element visual test using eyes.check()', async ({ page, eyes }) => {
 
 ### Overriding default behaviors
 
-You can adjust global settings in your `playwright.config.ts` file using `eyesTestSettings` and `eyesWorkerSettings`:
+You can adjust global settings in your `playwright.config.ts` file using `eyesConfig`:
 
 ```typescript
 // playwright.config.ts
-export default {
-  eyesTestSettings: {
-    matchLevel: 'Strict',
-    ignoreDisplacements: true,
-  },
-  eyesWorkerSettings: {
-    batch: {
-      name: 'My Test Batch',
+import { EyesFixture } from '@applitools/eyes-playwright;
+export default defineConfig<EyesFixture> ({
+  use: {
+    eyesConfig: {
+      appName: 'My App',
+      failTestsOnDiff: 'afterEach', // Options: 'afterEach', 'afterAll', false
     },
-    failTestsOnDiff: 'afterEach', // Options: 'afterEach', 'afterAll', false
   },
-};
+});
 ```
 
 #### Examples of global settings
 
-- `matchLevel`: Default match level for all tests.
-- `ignoreDisplacements`: Ignores minor shifts in element positions.
-- `batch`: Sets the batch name for grouping tests.
+- `apiKey`: Default Applitools API key for all tests.
+- `appName`: Default application name to use.
+- `batch`: Sets the BatchInfo for grouping tests.
 - `failTestsOnDiff`: Controls when to throw exceptions on visual differences.
 
 ## Working with Page Object Models (POMs)

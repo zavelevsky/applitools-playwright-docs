@@ -20,13 +20,13 @@ You can set the Dynamic match level globally or per test:
 
 ```typescript
 // playwright.config.ts
-export default {
+export default defineConfig<EyesFixture>({
   use: {
-    eyesTestSettings: {
+    eyesConfig: {
       matchLevel: 'Dynamic',
     },
   },
-};
+});
 ```
 
 **Per test configuration:**
@@ -62,13 +62,13 @@ You can set the match level globally or per test:
 
 ```typescript
 // playwright.config.ts
-export default {
+export default defineConfig<EyesFixture>({
   use: {
-    eyesTestSettings: {
+    eyesConfig: {
       matchLevel: 'Layout',
     },
   },
-};
+});
 ```
 
 **Per test configuration:**
@@ -140,9 +140,10 @@ Specify the browsers and devices you want to test in your configuration.
 
 ```typescript
 // playwright.config.ts
-export default {
+export default defineConfig<EyesFixture>({
   use: {
-    eyesTestSettings: {
+    eyesConfig: {
+      type: 'ufg',
       browsersInfo: [
         { name: 'chrome', width: 800, height: 600 },
         { name: 'firefox', width: 1024, height: 768 },
@@ -156,7 +157,7 @@ export default {
       ],
     },
   },
-};
+});
 ```
 
 With this configuration, Applitools will render your application in the specified browsers and viewport sizes, capturing screenshots for visual comparison.
@@ -200,7 +201,7 @@ Alternatively, use the Ultrafast Grid to specify different viewport sizes.
 **In `playwright.config.ts`:**
 
 ```typescript
-eyesTestSettings: {
+eyesConfig: {
   browsersInfo: [
     { name: 'chrome', width: 375, height: 667 }, // Mobile
     { name: 'chrome', width: 768, height: 1024 }, // Tablet
@@ -221,8 +222,8 @@ Set batch names to group related tests together. This can represent a test run, 
 
 ```typescript
 // playwright.config.ts
-export default {
-  eyesWorkerSettings: {
+use: {
+  eyesConfig: {
     batch: {
       name: 'Feature XYZ Tests',
     },
@@ -259,8 +260,8 @@ test('Test with custom batch', async ({ page, eyes }) => {
 **In `playwright.config.ts`:**
 
 ```typescript
-eyesWorkerSettings: {
-  concurrency: 10, // Adjust based on your needs and account limits
+eyesConfig: {
+  testConcurrency: 10, // Adjust based on your needs and account limits
 },
 ```
 

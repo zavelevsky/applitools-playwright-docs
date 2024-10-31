@@ -73,9 +73,9 @@ You can customize test names to suit your organizational needs:
 
 ```typescript
 // playwright.config.ts
-export default {
-  eyesTestSettings: {
-    useFullTestName: false, // Use only the test title as the test name
+use: {
+  eyesConfig: {
+    testName: (testInfo: TestInfo) => `My test ${testInfo.title}`
   },
 };
 ```
@@ -114,8 +114,8 @@ You can set the match level globally in your configuration or override it per te
 
 ```typescript
 // playwright.config.ts
-export default {
-  eyesTestSettings: {
+use: {
+  eyesConfig: {
     matchLevel: 'Dynamic',
   },
 };
@@ -157,8 +157,8 @@ If you prefer your tests to fail when visual differences are detected, you can c
 
 ```typescript
 // playwright.config.ts
-export default {
-  eyesTestSettings: {
+use: {
+  eyesConfig: {
     failTestsOnDiff: 'afterEach',
   },
 };
@@ -210,9 +210,9 @@ You can specify a custom batch name in your configuration or per test run.
 
 ```typescript
 // playwright.config.ts
-export default {
-  eyesWorkerSettings: {
-    batchName: 'Release 1.0 Tests',
+use: {
+  eyesConfig: {
+    batch: { name: 'Release 1.0 Tests' },
   },
 };
 ```
@@ -258,53 +258,30 @@ Applitools Eyes integrates with Playwright's configuration system, allowing you 
 
 ### Configuration settings
 
-- **Global Settings**: Use `eyesTestSettings` and `eyesWorkerSettings` in `playwright.config.ts` to apply settings across all tests.
+- **Global Settings**: Use `eyesConfig` in `playwright.config.ts` to apply settings across all tests.
 - **Per Test Settings**: Override settings within individual tests as needed.
 
-### `eyesTestSettings`
+### `eyesConfig`
 
-Settings that apply to individual tests or checkpoints.
+All available configuration options, apply to the test runners and to individual tests or checkpoints.
 
 **Available options:**
 
 - `matchLevel`
 - `failTestsOnDiff`
-- `useFullTestName`
-- Other visual comparison settings. [Link to API]
+- `appName`
+- full list in the [API section](./api/overview.md)
 
 **Example:**
 
 ```typescript
 // playwright.config.ts
-export default {
-  eyesTestSettings: {
-    matchLevel: 'Strict',
-    failTestsOnDiff: 'afterEach',
-    useFullTestName: true,
-  },
-};
-```
-
-### `eyesWorkerSettings`
-
-Settings that apply to the test runner or worker level.
-
-**Available options:**
-
-- `batchName`
-- `batchId`
-- `branchName`
-- Other global settings. [Link to API ]
-
-**Example:**
-
-```typescript
-// playwright.config.ts
-export default {
+export default defineConfig<EyesFixture>({
   use: {
-    eyesWorkerSettings: {
-      batchName: 'My App - Feature XYZ',
-      branchName: 'feature/xyz',
+    eyesConfig: {
+      appName: 'My App',
+      failTestsOnDiff: 'afterEach',
+      sendDom: true,
     },
   },
 };
@@ -324,6 +301,7 @@ test('Custom settings test', async ({ page, eyes }) => {
     fully: true,
     matchLevel: 'Strict',
     ignoreRegions: [page.locator('.dynamic-content')],
+    useDom: false,
   });
 });
 ```
@@ -332,15 +310,14 @@ test('Custom settings test', async ({ page, eyes }) => {
 
 ```typescript
 // playwright.config.ts
-export default {
+export default defineConfig<EyesFixture>({
   // Other Playwright configurations
   use: {
-    eyesTestSettings: {
-      matchLevel: 'Strict',
+    eyesConfig: {
       failTestsOnDiff: 'afterEach',
-    },
-    eyesWorkerSettings: {
-      batchName: 'My App - Regression Suite',
+      batch: { name: 'Release 1.0 Tests' },
+      testName: (testInfo: TestInfo) => `My test ${testInfo.title}`,
+
     },
   },
 };

@@ -173,12 +173,12 @@ Applitools Eyes supports baseline branching to align with your Git branches. Thi
 
 #### Configuring baseline branching
 
-Set the `branchName` in your `eyesWorkerSettings`:
+Set the `branchName` in your `eyesConfig`:
 
 ```typescript
 // playwright.config.ts
-export default {
-  eyesWorkerSettings: {
+use: {
+  eyesConfig: {
     branchName: process.env.GIT_BRANCH || 'main',
     parentBranchName: 'main',
   },

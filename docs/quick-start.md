@@ -41,12 +41,12 @@ _Note: Detailed instructions on acquiring your API key are provided in the [Appl
 
 ## Setting up your first visual test
 
-### Import Applitools test and expect
+### Import Applitools test
 
-In your test files, ensure you're using the Applitools versions of `test` and `expect`:
+In your test files, ensure you're using the Applitools version of `test`:
 
 ```typescript
-import { test, expect } from '@applitools/eyes-playwright';
+import { test } from '@applitools/eyes-playwright';
 ```
 
 _Note: The CLI setup may have already made this change for you._
@@ -68,7 +68,7 @@ test('My first visual test', async ({ page, eyes }) => {
 
 This command captures a screenshot of the page and compares it against a baseline image. If no baseline exists yet, the captured screenshot becomes the baseline for future comparisons.
 
-_Note: If you have existing tests using `toHaveScreenshot`, they will run with Applitools Eyes as the equivalent of `eyes.check()`. However, we recommend using the `eyes.check()` API for enhanced capabilities and better integration with Applitools features._
+_Note: If you have existing tests using `toHaveScreenshot`, they will run with Applitools Eyes as the equivalent of `eyes.check()`. Simply import `except` from `'@applitools/eyes-playwright'`. However, we recommend using the `eyes.check()` API for enhanced capabilities and better integration with Applitools features._
 
 ## Running your test
 
