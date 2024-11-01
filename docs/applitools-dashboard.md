@@ -62,7 +62,7 @@ Clicking on a batch opens the **Batch Details** view, showing individual tests w
 
 - **Test List**: A list of tests with their statuses (Passed, Unresolved, Failed).
 - **Batch Information**: Details like batch name, start time, and duration.  
-  _Placeholder for Screenshot: [**Batch Details View**]_
+  ![Batch tests](/img/batch-details.png)
 
 ### Test details and steps
 
@@ -71,7 +71,7 @@ Selecting a test displays the **Test Details**, where you can view each step and
 - **Step List**: Screenshots captured at each visual checkpoint.
 - **Baseline and Checkpoint Images**: Side-by-side comparison of the baseline and the new screenshot.
 - **Differences Overlay**: Highlighted areas where visual differences were detected.  
-  _Placeholder for Screenshot: [**Test Details and Steps**]_
+  ![Step view](/img/step-view.png)
 
 ---
 
@@ -85,7 +85,7 @@ For steps with visual differences:
 2. Use the toolbar to switch between different comparison modes:
    - **Side-by-Side**: Displays baseline and checkpoint images next to each other.
    - **Toggle**: Quickly switch between images to spot changes.
-3. _Placeholder for Screenshot: [**Visual Comparison Modes**]_
+3. ![Step diffs](/img/step-diffs.png)
 
 ### Interpreting differences
 
@@ -99,7 +99,7 @@ For advanced debugging, use the **Root Cause Analysis** feature:
 1. Click on the **"Root Cause"** button (represented by a brackets icon).
 2. View differences in the underlying DOM and CSS.
 3. Identify specific code changes that led to visual differences.  
-   _Placeholder for Screenshot: [**Root Cause Analysis View**]_
+   ![Root cause](/img/root-cause.png)
 
 ---
 
@@ -111,7 +111,7 @@ For each test step with differences:
 
 - **Accept (Approve)**: Confirms the changes are intentional, updating the baseline.
 - **Reject**: Marks the differences as unintended, indicating a potential bug.  
-  _Placeholder for Screenshot: [**Accept or Reject Changes Buttons**]_
+  ![Accept changes](/img/accept-changes.png)
 
 #### How to accept changes:
 
@@ -129,7 +129,7 @@ After reviewing all differences:
 
 - Click on the **"Save"** button to apply your decisions.
 - The baseline images will be updated accordingly for future test runs.  
-  _Placeholder for Screenshot: [**Save Decisions Button**]_
+  ![Save baseline](/img/save-baseline.png)
 
 ---
 
@@ -142,8 +142,9 @@ After reviewing all differences:
 ### Adding remarks and bugs
 
 - **Remarks**: Add remarks on specific steps or differences to communicate with your team.
+  ![Remarks](/img/remark.png)
 - **Bugs**: Use tools to highlight areas of concern on the screenshots.  
-  _Placeholder for Screenshot: [**Remarks and Bugs Interface**]_
+  ![Remark view](/img/remarks-view.png)
 
 ### Integrations
 
@@ -160,8 +161,9 @@ Applitools integrates with various tools to enhance collaboration:
 ### Batch management
 
 - **Batch grouping**: Organize tests into batches for better management.
+  ![Gallery view](/img/batch-gallery.png)
 - **Batch comparison**: Compare entire batches to identify differences across test runs.  
-  _Placeholder for Screenshot: [**Batch Management Interface**]_
+  ![Gallery view grouped](/img/batch-gallery-grouped.png)
 
 ### Test configuration overrides
 
@@ -174,8 +176,9 @@ Applitools integrates with various tools to enhance collaboration:
 ### Insights and analytics
 
 - Access metrics and trends over time.
+  ![Insights view](/img/insights.png)
 - Identify patterns in test failures or UI changes.  
-  _Placeholder for Screenshot: [**Insights and Analytics Dashboard**]_
+  ![Attention view](/img/test-attention.png)
 
 ---
 

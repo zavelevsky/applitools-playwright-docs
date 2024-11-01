@@ -98,6 +98,8 @@ npx playwright show-report
 
 This custom report will display the visual test outcomes and can serve as a lightweight alternative to the Applitools Dashboard, easily shareable and always available and up to date with the latest batch resolution.
 
+![report](/img/report-visual-diff.png)
+
 ### In Applitools dashboard
 
 For detailed visual test results:
@@ -106,3 +108,4 @@ For detailed visual test results:
 2. Click the link to navigate directly to your test results.
 3. Review any visual differences detected.
 4. Accept changes and click the Save button to update baselines, or reject changes to flag issues.
+![dashboard](/img/accept-changes.png)
