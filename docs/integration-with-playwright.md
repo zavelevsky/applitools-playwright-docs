@@ -63,16 +63,25 @@ test('Visual test using eyes.check()', async ({ page, eyes }) => {
 
 ## Enhanced HTML report
 
+When integrating Applitools Eyes into your Playwright tests, you gain access to an enhanced HTML report that provides detailed visual test results. This report extends Playwright's default HTML report with Applitools' visual testing insights, making it a powerful tool for reviewing and sharing test outcomes.
+
 ### Setup and run the report
 
-When integrating Applitools Eyes into your Playwright tests, Playwright's HTML report is enhanced with visual test results. Go to `playwright.config.ts` file and add the following settings:
+To enable the enhanced HTML report, update your `playwright.config.ts` file with the following settings:
 
 ```typescript
 // playwright.config.ts
-reporter: '@applitools/eyes-playwright/reporter',
+import { defineConfig } from '@playwright/test';
+import { EyesFixture } from '@applitools/eyes-playwright';
+
+export default defineConfig<EyesFixture>({
+  // Other Playwright configurations...
+  reporter: '@applitools/eyes-playwright/reporter',
+  // Additional configurations...
+});
 ```
 
-_Note: The CLI setup may have already made this change for you._
+_Note: If you used the Applitools CLI setup tool, this change may have already been made for you._
 
 After running your tests, you can view the test results in the enhanced HTML report. To open the report, run:
 
@@ -80,15 +89,52 @@ After running your tests, you can view the test results in the enhanced HTML rep
 npx playwright show-report
 ```
 
-This custom report will display the visual test outcomes and can serve as a lightweight alternative to the Applitools Dashboard, easily shareable and always available and up to date with the latest batch resolution.
+### Benefits of the enhanced report
+
+- **Lightweight and shareable**: The enhanced Applitools HTML report is lightweight and can be easily shared. You can commit it to source control or send it as an email attachment without worrying about large file sizes.
+- **Standalone viewing**: You don't need to be logged in to Applitools Eyes or even have an Applitools account to view the test results, checkpoint images, and diffs. This makes it convenient for team members or stakeholders who don't have access to Applitools.
+- **Always up-to-date**: The report remains up to date with the latest batch resolution, ensuring that you always have the most current information at your fingertips.
 
 ![report main page](/img/report-main-page.png)
 
-### Review visual test results
+### Reviewing visual test results
 
-The enhanced report offers several helpful options to view and address visual test results, accepting intentional changes, rejecting detecting issues, and eventually saving the checkpoints as the expected baseline.
+The enhanced report offers several helpful features to view and address visual test results:
+
+- **Visual diffs**: Easily identify differences between the baseline and the current test run with side-by-side comparisons and highlighted changes.
+- **Accepting or rejecting changes**: If intentional changes were made, you can accept them directly in the report. If unexpected differences are found, you can reject them to flag the test for further investigation.
+
+#### Accepting or rejecting changes
+
+- **Accept**: Accepting changes means you **accept and save the new checkpoint as the baseline image**. This updates the baseline image for future test runs.
+- **Reject**: Rejecting changes indicates that the differences are unintended and need to be addressed.
 
 ![report diffs](/img/report-visual-diff.png)
+
+#### Viewing the report without logging in
+
+You can view test results, checkpoint images, and diffs without being logged in to Applitools Eyes or even having an Applitools account.
+
+_Note: For security reasons, baseline images are not displayed when not logged in, and accepting or rejecting changes requires authentication._
+
+![report logged out](/img/report-logged-out.png)
+
+#### Logging in to Applitools Eyes
+
+When you attempt to accept or reject changes without being logged in, the report will prompt you to log in. This ensures that only authorized users can modify baselines.
+
+**Security explanation**: Baseline images and the ability to modify them are protected to prevent unauthorized changes, maintaining the integrity of your visual tests.
+
+![report logging in](/img/report-logging-in.png)
+
+### Sharing the report
+
+Since the enhanced HTML report is lightweight and self-contained, you can easily share it with others:
+
+- **Commit to source control**: Add the report to your version control system to keep a history of test runs and results.
+- **Share the file**: Send the report file directly to team members or stakeholders who need to review the test results.
+
+**No dependencies**: Recipients of the report don't need any special software or access to Applitools Eyes to view the report. They can open it in any modern web browser.
 
 ## Advanced configuration
 
