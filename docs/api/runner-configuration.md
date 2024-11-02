@@ -43,24 +43,24 @@ browsersInfo: [
 - Mobile emulation:
 
 ```typescript
-browsersInfo: [
-  {
-    deviceName: 'iPhone X',
-    screenOrientation: 'portrait', // or 'landscape'
+{
+  chromeEmulationInfo: {
+    deviceName: 'iPad 7th Gen',
+    screenOrientation: 'landscape',
   },
-],
+},
 ```
 
 - iOS device:
 
 ```typescript
-browsersInfo: [
-  {
+{
+  iosDeviceInfo: {
     deviceName: 'iPad (7th generation)',
     iosVersion: 'latest',
     screenOrientation: 'portrait',
   },
-],
+},
 ```
 
 #### Example:
@@ -70,13 +70,10 @@ browsersInfo: [
   { name: 'chrome', width: 800, height: 600 },
   { name: 'firefox', width: 1024, height: 768 },
   {
-    deviceName: 'iPhone X',
-    screenOrientation: 'portrait',
-  },
-  {
-    deviceName: 'iPad (7th generation)',
-    iosVersion: 'latest',
-    screenOrientation: 'portrait',
+    iosDeviceInfo: {
+      deviceName: 'iPhone 16',
+      screenOrientation: 'portrait',
+    },
   },
 ],
 ```
