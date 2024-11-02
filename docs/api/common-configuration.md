@@ -148,13 +148,13 @@ ignoreDisplacements: true,
 - **`failTestsOnDiff`** (string | boolean):  
   Controls whether exceptions are thrown when visual differences are detected.
 
-  **Default**: `'afterEach'`.
+  **Default**: `false`.
 
   Possible values:
 
-  - `'afterEach'` (default): Throws an exception after each test that has visual differences.
+  - `'afterEach'`: Throws an exception after each test that has visual differences.
   - `'afterAll'`: Throws an exception after all tests have run if any visual differences are detected (more performant).
-  - `false`: Does not throw exceptions for visual differences (best used with Applitools' Continuous Testing platform).
+  - `false` (default): Does not throw exceptions for visual differences (best used with Applitools' Continuous Testing platform).
 
 ```typescript
 failTestsOnDiff: 'afterEach',

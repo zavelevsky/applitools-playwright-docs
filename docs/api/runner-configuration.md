@@ -2,14 +2,14 @@
 
 You can choose between two types of runners:
 
-- **Ultrafast Grid (UFG)**: Allows you to perform cross-browser testing by rendering your application across multiple browsers and devices in the cloud.
+- **Ultrafast Grid (UFG)**: Allows you to perform cross-browser testing by rendering your application across multiple browsers and devices in the cloud. **Note**: This option requires an active Ultrafast Grid license to use.
 - **Classic Runner**: Runs visual tests on your local machine without cross-browser rendering.
 
 ## Selecting the Runner Type
 
 - **`type`** (string):  
   Specifies the runner type.  
-  **Default**: `'ufg'`.  
+  **Default**: `'classic'`.  
   Possible values:
   - `'ufg'`: Uses the Ultrafast Grid for cross-browser testing (requires UFG license).
   - `'classic'`: Uses the Classic runner for local testing.
