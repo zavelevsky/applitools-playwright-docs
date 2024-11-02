@@ -2,10 +2,10 @@
 
 You can choose between two types of runners:
 
-- **Ultrafast Grid (UFG)**: Allows you to perform cross-browser testing by rendering your application across multiple browsers and devices in the cloud. **Note**: This option requires an active Ultrafast Grid license to use.
-- **Classic Runner**: Runs visual tests on your local machine without cross-browser rendering.
+- **Ultrafast grid (UFG)**: Allows you to perform cross-browser testing by rendering your application across multiple browsers and devices in the cloud. **Note**: This option requires an active Ultrafast Grid license to use.
+- **Classic runner**: Runs visual tests on your local machine without cross-browser rendering.
 
-## Selecting the Runner Type
+## Selecting the runner type
 
 - **`type`** (string):  
   Specifies the runner type.  
@@ -18,12 +18,12 @@ You can choose between two types of runners:
 type: 'ufg',
 ```
 
-## Ultrafast Grid (UFG) Configuration
+## Ultrafast grid (UFG) configuration
 
 The following options are relevant when using the Ultrafast Grid runner (`type: 'ufg'`).  
 **Note**: Using the Ultrafast Grid requires a license.
 
-### Rendering and Browser Configuration
+### Rendering and browser configuration
 
 - **`browsersInfo`** (array):  
   Specifies the browsers, devices, and viewport sizes for cross-browser testing with UFG. Learn more [here](https://applitools.com/docs/topics/overview/ufg-devices.html) about supported browsers and devices.
@@ -95,7 +95,7 @@ browsersInfo: [
 layoutBreakpoints: [320, 768, 1024],
 ```
 
-### Concurrency Configuration
+### Concurrency configuration
 
 - **`testConcurrency`** (number):  
   The maximum number of visual tests to run concurrently in the Ultrafast Grid.
@@ -115,7 +115,7 @@ testConcurrency: 10,
 fetchConcurrency: 5,
 ```
 
-### Ultrafast Grid Options
+### Ultrafast grid options
 
 - **`visualGridOptions`** (object):  
   Additional options for the Ultrafast Grid rendering.
@@ -139,7 +139,7 @@ visualGridOptions: {
 },
 ```
 
-## Classic Runner Configuration
+## Classic runner configuration
 
 When using the Classic runner (`type: 'classic'`), you run visual tests locally without the cross-browser rendering capabilities of the Ultrafast Grid.
 

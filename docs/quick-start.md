@@ -105,6 +105,7 @@ This custom report will display the visual test outcomes and can serve as a ligh
 For detailed visual test results:
 
 1. After your test run, the terminal output will include a link to the test results in the Applitools Dashboard.
+![terminal](/img/console-results.png)
 2. Click the link to navigate directly to your test results.
 3. Review any visual differences detected.
 4. Accept changes and click the Save button to update baselines, or reject changes to flag issues.

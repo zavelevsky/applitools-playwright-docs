@@ -2,11 +2,11 @@
 
 This section describes all available configuration options for Applitools Eyes when using it with Playwright. The configuration is set in your `playwright.config.ts` file under the `eyesConfig` property.
 
-## Common Configuration Options
+## Common configuration options
 
 These options apply to both Ultrafast Grid (UFG) and Classic runners. Runner-specific options are listed in the dedicated section.
 
-### Authentication and Server Configuration
+### Authentication and server configuration
 
 - **`apiKey`** (string):  
   Your Applitools API key. This key authenticates your account and is required for all interactions with the Applitools Eyes server.
@@ -39,7 +39,7 @@ proxy: {
 },
 ```
 
-### Test and Application Identification
+### Test and application identification
 
 - **`appName`** (string):  
   The name of your application under test. This name groups tests related to the same application in the Applitools Dashboard.
@@ -71,7 +71,7 @@ properties: [
 ],
 ```
 
-### Batch Configuration
+### Batch configuration
 
 - **`batch`** (object):  
   Defines the batch to which the tests belong. Batches group related tests together in the Applitools Dashboard.
@@ -96,7 +96,7 @@ batch: {
 },
 ```
 
-### Branching and Baseline Management
+### Branching and baseline management
 
 - **`branchName`** (string):  
   The branch name in your version control system. Used for baseline branching in Applitools.
@@ -116,7 +116,7 @@ branchName: 'feature/login-page',
 parentBranchName: 'main',
 ```
 
-### Visual Comparison Settings
+### Visual comparison settings
 
 - **`matchLevel`** (string):  
   The match level for visual comparisons. Determines how strictly images are compared.
@@ -143,7 +143,7 @@ matchLevel: 'Strict',
 ignoreDisplacements: true,
 ```
 
-### Exception Handling Configuration
+### Exception handling configuration
 
 - **`failTestsOnDiff`** (string | boolean):  
   Controls whether exceptions are thrown when visual differences are detected.
@@ -173,7 +173,7 @@ afterAll: async (results) => {
 },
 ```
 
-### Viewport Configuration
+### Viewport configuration
 
 - **`viewportSize`** (object):  
   The viewport size for the browser where the test is executing. It may affect the resources downloaded to the browser.

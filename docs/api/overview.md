@@ -7,19 +7,19 @@ Welcome to the API reference for integrating Applitools Eyes with Playwright. Th
 Integrating Applitools Eyes with Playwright involves two main steps:
 
 1. **Configuration**: Update your `playwright.config.ts` file to include Applitools Eyes settings under `eyesConfig`.
-2. **Writing Tests**: Import `test` from `@applitools/eyes-playwright` and use the `eyes` object within your tests to perform visual checkpoints using the `eyes.check` method.
+2. **Writing tests**: Import `test` from `@applitools/eyes-playwright` and use the `eyes` object within your tests to perform visual checkpoints using the `eyes.check` method.
 
    **Note:** Additionally, Applitools Eyes supports Playwright's native visual assertion methods. If you import `expect` from `@applitools/eyes-playwright`, your existing tests using `expect(page).toHaveScreenshot()` will work seamlessly with Applitools Eyes. However, it is recommended to use `eyes.check` for more advanced visual testing features.
 
-## API Sections
+## API sections
 
 The API reference is divided into the following sections:
 
-- **Configuration Options**: A comprehensive list of all available configuration options for Applitools Eyes.
-- **Using `eyes.check` in Tests**: Detailed usage of the `eyes.check` method, including parameters and examples.
-- **Defining Regions with Selectors and Locators**: How to specify different types of regions when calling `eyes.check`.
+- **Configuration options**: A comprehensive list of all available configuration options for Applitools Eyes.
+- **Using `eyes.check` in tests**: Detailed usage of the `eyes.check` method, including parameters and examples.
+- **Defining regions with selectors and locators**: How to specify different types of regions when calling `eyes.check`.
 
-## Basic Example
+## Basic example
 
 To configure Applitools Eyes in your Playwright project, you need to update your `playwright.config.ts` file. The configuration options are set under the `eyesConfig` property within the `use` section.
 
@@ -47,7 +47,7 @@ export default defineConfig<EyesFixture>({
 
 **Note**: All configuration options are optional. If an option is not specified, a default value is used. Default behaviors are provided in the option descriptions in the next sections.
 
-## Overriding Settings in Tests
+## Overriding settings in tests
 
 You can override global `eyesConfig` settings for individual tests or test suites using `test.use()`.
 

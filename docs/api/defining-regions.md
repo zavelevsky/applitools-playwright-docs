@@ -2,7 +2,7 @@
 
 When specifying regions in `eyes.check`, you can use CSS selectors, XPath expressions, or Playwright locators to define areas of the page This section covers the different approaches.
 
-## Using CSS Selectors
+## Using CSS selectors
 
 Specify the region using a CSS selector string.
 
@@ -17,7 +17,7 @@ await eyes.check('Dynamic Areas', {
 });
 ```
 
-## Using XPath Selectors
+## Using XPath selectors
 
 Specify regions using XPath expressions:
 
@@ -27,7 +27,7 @@ await eyes.check('Content Area', {
 });
 ```
 
-## Using Playwright Locators
+## Using Playwright locators
 
 Leverage Playwright's powerful locator methods to define regions.
 
@@ -46,7 +46,7 @@ await eyes.check('Interactive Elements', {
 });
 ```
 
-## Coordinate-Based Regions
+## Coordinate-based regions
 
 Specify the region using exact coordinates.
 
@@ -61,7 +61,7 @@ await eyes.check('Specific Area', {
 });
 ```
 
-## Using Multiple Regions
+## Using multiple regions
 
 You can specify multiple regions in arrays for options like `ignoreRegions`, `layoutRegions`, etc.
 
@@ -75,7 +75,7 @@ await eyes.check('Interactive Elements', {
 });
 ```
 
-## Floating Regions
+## Floating regions
 
 Floating regions allow for elements that may shift position between test runs.
 
@@ -93,7 +93,7 @@ await eyes.check('Floating Elements', {
 });
 ```
 
-## Accessibility Regions
+## Accessibility regions
 
 Define regions with specific accessibility levels to ensure compliance.
 
@@ -108,7 +108,7 @@ await eyes.check('Accessible Content', {
 });
 ```
 
-## Complete Test Example
+## Complete test example
 
 ```typescript
 import { test } from '@applitools/eyes-playwright';

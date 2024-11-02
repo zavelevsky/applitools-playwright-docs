@@ -2,7 +2,7 @@
 
 The `eyes` object provided by the Applitools Eyes Playwright integration allows you to perform visual checkpoints using the `eyes.check` method. This method captures screenshots and compares them against their corresponding baselines.
 
-## Importing `test` and Using `eyes`
+## Importing `test` and using `eyes`
 
 In your test files, import `test` from `@applitools/eyes-playwright` instead of `@playwright/test`.
 
@@ -22,7 +22,7 @@ import { test, expect } from '@applitools/eyes-playwright';
 
 **Note**: Tests using Playwright's `expect(page).toHaveScreenshot()` will work seamlessly with Applitools Eyes when imported from `@applitools/eyes-playwright`. However, it is recommended to use `eyes.check` for advanced visual testing features.
 
-## Performing Visual Checkpoints
+## Performing visual checkpoints
 
 Use `eyes.check` within your tests to perform visual validations.
 
@@ -47,7 +47,7 @@ test('Multiple checkpoints', async ({ page, eyes }) => {
 });
 ```
 
-## eyes.check Method
+## eyes.check method
 
 ### Syntax
 
@@ -204,7 +204,7 @@ visualGridOptions: {
 },
 ```
 
-### Example Usage
+### Example usage
 
 ```typescript
 test('Visual Test with Regions', async ({ page, eyes }) => {

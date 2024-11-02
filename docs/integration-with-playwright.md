@@ -61,6 +61,35 @@ test('Visual test using eyes.check()', async ({ page, eyes }) => {
 - **Use textual assertions only when necessary**: Use `eyes.check()` to assert appearance and every functionality that has a visual aspect, thus reducing your test code by 80%. Leave only those textual assertions needed to validate certain dynamic aspects that require programmatic evaluation.
 - **Encapsulate Visual Checks**: Keep visual checkpoints within relevant page object methods or custom fixtures for better organization.
 
+## Enhanced HTML report
+
+### Setup and run the report
+
+When integrating Applitools Eyes into your Playwright tests, Playwright's HTML report is enhanced with visual test results. Go to `playwright.config.ts` file and add the following settings:
+
+```typescript
+// playwright.config.ts
+reporter: '@applitools/eyes-playwright/reporter',
+```
+
+_Note: The CLI setup may have already made this change for you._
+
+After running your tests, you can view the test results in the enhanced HTML report. To open the report, run:
+
+```bash
+npx playwright show-report
+```
+
+This custom report will display the visual test outcomes and can serve as a lightweight alternative to the Applitools Dashboard, easily shareable and always available and up to date with the latest batch resolution.
+
+![report main page](/img/report-main-page.png)
+
+### Review visual test results
+
+The enhanced report offers several helpful options to view and address visual test results, accepting intentional changes, rejecting detecting issues, and eventually saving the checkpoints as the expected baseline.
+
+![report diffs](/img/report-visual-diff.png)
+
 ## Advanced configuration
 
 You can pass various options both capture methods in order to customize the behavior:
@@ -111,35 +140,6 @@ export default defineConfig<EyesFixture> ({
 - `appName`: Default application name to use.
 - `batch`: Sets the BatchInfo for grouping tests.
 - `failTestsOnDiff`: Controls when to throw exceptions on visual differences.
-
-## Enhanced HTML report
-
-### Setup and run the report
-
-When integrating Applitools Eyes into your Playwright tests, Playwright's HTML report is enhanced with visual test results. Go to `playwright.config.ts` file and add the following settings:
-
-```typescript
-// playwright.config.ts
-reporter: '@applitools/eyes-playwright/reporter',
-```
-
-_Note: The CLI setup may have already made this change for you._
-
-After running your tests, you can view the test results in the enhanced HTML report. To open the report, run:
-
-```bash
-npx playwright show-report
-```
-
-This custom report will display the visual test outcomes and can serve as a lightweight alternative to the Applitools Dashboard, easily shareable and always available and up to date with the latest batch resolution.
-
-![report main page](/img/report-main-page.png)
-
-### Review visual test results
-
-The enhanced report offers several helpful options to view and address visual test results, accepting intentional changes, rejecting detecting issues, and eventually saving the checkpoints as the expected baseline.
-
-![report diffs](/img/report-visual-diff.png)
 
 ## Working with Page Object Models (POMs)
 
