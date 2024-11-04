@@ -91,8 +91,10 @@ npx playwright show-report
 
 ### Benefits of the enhanced report
 
+- **Accept diffs and update baselines**: One of the significant advantages of the enhanced report is the ability to accept differences and update baselines directly from the report. If intentional changes were made to the UI, you can approve these changes with a single click, updating the baseline images for future test runs.
 - **Lightweight and shareable**: The enhanced Applitools HTML report is lightweight and can be easily shared. You can commit it to source control or send it as an email attachment without worrying about large file sizes.
 - **Standalone viewing**: You don't need to be logged in to Applitools Eyes or even have an Applitools account to view the test results, checkpoint images, and diffs. This makes it convenient for team members or stakeholders who don't have access to Applitools.
+- **Security and permissions**: Only approved users can view baseline images and update baselines. This is crucial for enterprise customers or teams dealing with sensitive user data or intellectual property included in baseline images.
 - **Always up-to-date**: The report remains up to date with the latest batch resolution, ensuring that you always have the most current information at your fingertips.
 
 ![report main page](/img/report-main-page.png)
@@ -123,7 +125,7 @@ _Note: For security reasons, baseline images are not displayed when not logged i
 
 When you attempt to accept or reject changes without being logged in, the report will prompt you to log in. This ensures that only authorized users can modify baselines.
 
-**Security explanation**: Baseline images and the ability to modify them are protected to prevent unauthorized changes, maintaining the integrity of your visual tests.
+**Security explanation**: Baseline images and the ability to modify them are protected to prevent unauthorized changes, maintaining the integrity of your visual tests. This is particularly important for teams that handle sensitive user data or proprietary information included in baseline images.
 
 ![report logging in](/img/report-logging-in.png)
 
@@ -135,6 +137,12 @@ Since the enhanced HTML report is lightweight and self-contained, you can easily
 - **Share the file**: Send the report file directly to team members or stakeholders who need to review the test results.
 
 **No dependencies**: Recipients of the report don't need any special software or access to Applitools Eyes to view the report. They can open it in any modern web browser.
+
+#### Using the report in continuous integration (CI)
+
+In a CI environment, you can save the report as an artifact so that team members can download and review it. This is particularly useful for automated testing pipelines.
+
+For more information on setting up CI with Playwright and managing test artifacts, refer to the [Playwright CI guide](https://playwright.dev/docs/ci-intro).
 
 ## Advanced configuration
 
