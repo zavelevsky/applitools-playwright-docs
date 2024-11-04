@@ -109,7 +109,7 @@ The enhanced report offers several helpful features to view and address visual t
 #### Accepting or rejecting changes
 
 - **Accept**: Accepting changes means you **accept and save the new checkpoint as the baseline image**. This updates the baseline image for future test runs.
-- **Reject**: Rejecting changes indicates that the differences are unintended and need to be addressed.
+- **Reject**: Rejecting changes indicates that the differences are unintended and need to be addressed. This changes the test status to "Failed".
 
 ![report diffs](/img/report-visual-diff.png)
 
@@ -125,7 +125,7 @@ _Note: For security reasons, baseline images are not displayed when not logged i
 
 When you attempt to accept or reject changes without being logged in, the report will prompt you to log in. This ensures that only authorized users can modify baselines.
 
-**Security explanation**: Baseline images and the ability to modify them are protected to prevent unauthorized changes, maintaining the integrity of your visual tests. This is particularly important for teams that handle sensitive user data or proprietary information included in baseline images.
+**Why do I need to login to Eyes?**: Baseline images and the ability to modify them are protected to prevent unauthorized changes, maintaining the integrity of your visual tests. This is particularly important for teams that handle sensitive user data or proprietary information included in baseline images.
 
 ![report logging in](/img/report-logging-in.png)
 
