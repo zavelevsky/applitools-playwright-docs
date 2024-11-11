@@ -7,9 +7,9 @@ Welcome to the API reference for integrating Applitools Eyes with Playwright. Th
 Integrating Applitools Eyes with Playwright involves two main steps:
 
 1. **Configuration**: Update your `playwright.config.ts` file to include Applitools Eyes settings under `eyesConfig`.
-2. **Writing tests**: Import `test` from `@applitools/eyes-playwright` and use the `eyes` object within your tests to perform visual checkpoints using the `eyes.check` method.
+2. **Writing tests**: Import `test` from `@applitools/eyes-playwright/fixture` and use the `eyes` object within your tests to perform visual checkpoints using the `eyes.check` method.
 
-   **Note:** Additionally, Applitools Eyes supports Playwright's native visual assertion methods. If you import `expect` from `@applitools/eyes-playwright`, your existing tests using `expect(page).toHaveScreenshot()` will work seamlessly with Applitools Eyes. However, it is recommended to use `eyes.check` for more advanced visual testing features.
+   **Note:** Additionally, Applitools Eyes supports Playwright's native visual assertion methods. If you import `expect` from `@applitools/eyes-playwright/fixture`, your existing tests using `expect(page).toHaveScreenshot()` will work seamlessly with Applitools Eyes. However, it is recommended to use `eyes.check` for more advanced visual testing features.
 
 ## API sections
 
@@ -26,7 +26,7 @@ To configure Applitools Eyes in your Playwright project, you need to update your
 ```typescript
 // playwright.config.ts
 import { defineConfig } from '@playwright/test';
-import { EyesFixture } from '@applitools/eyes-playwright';
+import { EyesFixture } from '@applitools/eyes-playwright/fixture';
 
 export default defineConfig<EyesFixture>({
   // Other Playwright configurations...
@@ -54,7 +54,7 @@ You can override global `eyesConfig` settings for individual tests or test suite
 **Example**:
 
 ```typescript
-import { test } from '@applitools/eyes-playwright';
+import { test } from '@applitools/eyes-playwright/fixture';
 
 test.use({
   eyesConfig: {

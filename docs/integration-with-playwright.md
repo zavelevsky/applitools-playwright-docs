@@ -6,10 +6,10 @@ In this section, we'll explore how to seamlessly integrate Applitools Eyes into 
 
 ### Importing Applitools modules
 
-To access Applitools features, import `test` from `@applitools/eyes-playwright` in your test files:
+To access Applitools features, import `test` from `@applitools/eyes-playwright/fixture` in your test files:
 
 ```typescript
-import { test } from '@applitools/eyes-playwright';
+import { test } from '@applitools/eyes-playwright/fixture';
 ```
 
 This replaces the default Playwright `test` function with Applitools-enhanced version that supports visual testing.
@@ -72,7 +72,7 @@ To enable the enhanced HTML report, update your `playwright.config.ts` file with
 ```typescript
 // playwright.config.ts
 import { defineConfig } from '@playwright/test';
-import { EyesFixture } from '@applitools/eyes-playwright';
+import { EyesFixture } from '@applitools/eyes-playwright/fixture';
 
 export default defineConfig<EyesFixture>({
   // Other Playwright configurations...
@@ -177,7 +177,7 @@ You can adjust global settings in your `playwright.config.ts` file using `eyesCo
 
 ```typescript
 // playwright.config.ts
-import { EyesFixture } from '@applitools/eyes-playwright;
+import { EyesFixture } from '@applitools/eyes-playwright/fixture';
 export default defineConfig<EyesFixture> ({
   use: {
     eyesConfig: {
@@ -236,7 +236,7 @@ Usage in the test:
 
 ```typescript
 // tests/login.test.js
-import { test } from '@applitools/eyes-playwright';
+import { test } from '@applitools/eyes-playwright/fixture';
 const { LoginPage } = require('../page-objects/LoginPage');
 
 test('Login page visual test using eyes.check()', async ({ page, eyes }) => {

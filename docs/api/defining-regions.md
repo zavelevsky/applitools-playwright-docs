@@ -111,7 +111,7 @@ await eyes.check('Accessible Content', {
 ## Complete test example
 
 ```typescript
-import { test } from '@applitools/eyes-playwright';
+import { test } from '@applitools/eyes-playwright/fixture';
 
 test('Full Visual Test', async ({ page, eyes }) => {
   await page.goto('https://example.com');

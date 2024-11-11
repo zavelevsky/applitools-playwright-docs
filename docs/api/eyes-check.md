@@ -4,23 +4,23 @@ The `eyes` object provided by the Applitools Eyes Playwright integration allows 
 
 ## Importing `test` and using `eyes`
 
-In your test files, import `test` from `@applitools/eyes-playwright` instead of `@playwright/test`.
+In your test files, import `test` from `@applitools/eyes-playwright/fixture` instead of `@playwright/test`.
 
 ```typescript
-import { test } from '@applitools/eyes-playwright';
+import { test } from '@applitools/eyes-playwright/fixture';
 
 test('Visual Test', async ({ page, eyes }) => {
   // Your test code...
 });
 ```
 
-To use Playwright's native `expect.toHaveScreenshot` methods with Applitools Eyes, import `expect` from `@applitools/eyes-playwright`:
+To use Playwright's native `expect.toHaveScreenshot` methods with Applitools Eyes, import `expect` from `@applitools/eyes-playwright/fixture`:
 
 ```typescript
-import { test, expect } from '@applitools/eyes-playwright';
+import { test, expect } from '@applitools/eyes-playwright/fixture';
 ```
 
-**Note**: Tests using Playwright's `expect(page).toHaveScreenshot()` will work seamlessly with Applitools Eyes when imported from `@applitools/eyes-playwright`. However, it is recommended to use `eyes.check` for advanced visual testing features.
+**Note**: Tests using Playwright's `expect(page).toHaveScreenshot()` will work seamlessly with Applitools Eyes when imported from `@applitools/eyes-playwright/fixture`. However, it is recommended to use `eyes.check` for advanced visual testing features.
 
 ## Performing visual checkpoints
 
