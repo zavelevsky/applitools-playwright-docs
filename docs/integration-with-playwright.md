@@ -103,6 +103,7 @@ npx playwright show-report
 
 The enhanced report offers several helpful features to view and address visual test results:
 
+- **Filters for efficient review at scale**: Additional filters like "Eyes" and "Unresolved" help you focus on visual tests that require your attention. The "Unresolved" filter lists tests with visual differences needing review, allowing you to efficiently manage and resolve them. Accepting all diffs in a test moves it to "Passed", while rejecting any diffs keeps it under "Failed".
 - **Visual diffs**: Easily identify differences between the baseline and the current test run with side-by-side comparisons and highlighted changes.
 - **Accepting or rejecting changes**: If intentional changes were made, you can accept them directly in the report. If unexpected differences are found, you can reject them to flag the test for further investigation.
 
@@ -178,7 +179,7 @@ You can adjust global settings in your `playwright.config.ts` file using `eyesCo
 ```typescript
 // playwright.config.ts
 import { EyesFixture } from '@applitools/eyes-playwright/fixture';
-export default defineConfig<EyesFixture> ({
+export default defineConfig<EyesFixture>({
   use: {
     eyesConfig: {
       appName: 'My App',
