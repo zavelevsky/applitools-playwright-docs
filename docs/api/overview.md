@@ -33,7 +33,6 @@ export default defineConfig<EyesFixture>({
   reporter: '@applitools/eyes-playwright/reporter',
   use: {
     eyesConfig: {
-      apiKey: 'YOUR_API_KEY',
       appName: 'My App',
       matchLevel: 'Strict',
       // Runner type: 'ufg' for Ultrafast Grid, 'classic' for Classic runner

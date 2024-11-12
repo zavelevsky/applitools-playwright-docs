@@ -37,6 +37,8 @@ Alternatively, you can set the API key as an environment variable:
 export APPLITOOLS_API_KEY='your_api_key_here'
 ```
 
+It's advisable to set your API key as an environment variable `APPLITOOLS_API_KEY` instead of hardcoding it in your configuration file. This approach keeps your API key secure since configuration files are often checked into version control systems.
+
 _Note: Detailed instructions on acquiring your API key are provided in the [Applitools Dashboard](./applitools-dashboard.md) section._
 
 ## Setting up your first visual test

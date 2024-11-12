@@ -191,7 +191,6 @@ export default defineConfig<EyesFixture>({
 
 #### Examples of global settings
 
-- `apiKey`: Default Applitools API key for all tests.
 - `appName`: Default application name to use.
 - `batch`: Sets the BatchInfo for grouping tests.
 - `failTestsOnDiff`: Controls when to throw exceptions on visual differences.

@@ -9,7 +9,7 @@ These options apply to both Ultrafast Grid (UFG) and Classic runners. Runner-spe
 ### Authentication and server configuration
 
 - **`apiKey`** (string):  
-  Your Applitools API key. This key authenticates your account and is required for all interactions with the Applitools Eyes server.
+  Your Applitools API key. This key authenticates your account and is required for all interactions with the Applitools Eyes server. It's advisable to set your API key as an environment variable `APPLITOOLS_API_KEY` instead of hardcoding it in your configuration file. This approach keeps your API key secure since configuration files are often checked into version control systems.
 
   **Default**: Reads from the `APPLITOOLS_API_KEY` environment variable if not specified.
 

@@ -31,7 +31,7 @@ Your API key is essential for connecting your tests to the Applitools Eyes cloud
 #### How to obtain your API key:
 
 1. Once logged in, click on your account name or avatar in the top-right corner.
-2. Select **"My API Key"** from the dropdown menu.  
+2. Select **"My API key"** from the dropdown menu.  
    ![My API Key Location](/img/api-key.png)
 3. Copy the displayed API key.  
    ![My API Key Dialog](/img/api-key-dialog.png)
@@ -41,6 +41,8 @@ Use this API key in your project by setting it as an environment variable or ent
 ```bash
 export APPLITOOLS_API_KEY='your_api_key_here'
 ```
+
+**Recommended practice**: It's advisable to set your API key as an environment variable `APPLITOOLS_API_KEY` instead of hardcoding it in your configuration file. This approach keeps your API key secure since configuration files are often checked into version control systems. However, rest assured that this API key only has EXECUTE permissions—it cannot be used to retrieve or modify test data or baselines. Its sole purpose is to authorize the execution of new tests within your account.
 
 ---
 
