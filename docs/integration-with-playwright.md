@@ -126,7 +126,7 @@ _Note: For security reasons, baseline images are not displayed when not logged i
 
 When you attempt to accept or reject changes without being logged in, the report will prompt you to log in. This ensures that only authorized users can modify baselines.
 
-**Why do I need to login to Eyes?**: Baseline images and the ability to modify them are protected to prevent unauthorized changes, maintaining the integrity of your visual tests. This is particularly important for teams that handle sensitive user data or proprietary information included in baseline images.
+**Why do I need to login to Eyes?** Baseline images and the ability to modify them are protected to prevent unauthorized changes, maintaining the integrity of your visual tests. This is particularly important for teams that handle sensitive user data or proprietary information included in baseline images.
 
 ![report logging in](/img/report-logging-in.png)
 
