@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.5.2">
 <title data-rh="true">Configuration Options | Applitools Eyes SDK for Playwright</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://zavelevsky.github.io/applitools-playwright-docs/docs/api/common-configuration"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Configuration Options | Applitools Eyes SDK for Playwright"><meta data-rh="true" name="description" content="This section describes all available configuration options for Applitools Eyes when using it with Playwright. The configuration is set in your playwright.config.ts file under the eyesConfig property."><meta data-rh="true" property="og:description" content="This section describes all available configuration options for Applitools Eyes when using it with Playwright. The configuration is set in your playwright.config.ts file under the eyesConfig property."><link data-rh="true" rel="icon" href="/applitools-playwright-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://zavelevsky.github.io/applitools-playwright-docs/docs/api/common-configuration"><link data-rh="true" rel="alternate" href="https://zavelevsky.github.io/applitools-playwright-docs/docs/api/common-configuration" hreflang="en"><link data-rh="true" rel="alternate" href="https://zavelevsky.github.io/applitools-playwright-docs/docs/api/common-configuration" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/applitools-playwright-docs/blog/rss.xml" title="Applitools Eyes SDK for Playwright RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/applitools-playwright-docs/blog/atom.xml" title="Applitools Eyes SDK for Playwright Atom Feed"><link rel="stylesheet" href="/applitools-playwright-docs/assets/css/styles.fb53fc93.css">
-<script src="/applitools-playwright-docs/assets/js/runtime~main.a75ca58a.js" defer="defer"></script>
+<script src="/applitools-playwright-docs/assets/js/runtime~main.325c7432.js" defer="defer"></script>
 <script src="/applitools-playwright-docs/assets/js/main.192d9a00.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -17,7 +17,7 @@
 <ul>
 <li>
 <p><strong><code>apiKey</code></strong> (string):<br>
-<!-- -->Your Applitools API key. This key authenticates your account and is required for all interactions with the Applitools Eyes server.</p>
+<!-- -->Your Applitools API key. This key authenticates your account and is required for all interactions with the Applitools Eyes server. It&#x27;s advisable to set your API key as an environment variable <code>APPLITOOLS_API_KEY</code> instead of hardcoding it in your configuration file. This approach keeps your API key secure since configuration files are often checked into version control systems.</p>
 <p><strong>Default</strong>: Reads from the <code>APPLITOOLS_API_KEY</code> environment variable if not specified.</p>
 </li>
 </ul>
